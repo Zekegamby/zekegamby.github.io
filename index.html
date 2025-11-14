@@ -50,20 +50,24 @@
             transition: opacity 0.3s ease;
         }
 
-        .click-hint {
-            position: fixed;
-            top: 80%;
-            left: 50%;
-            transform: translateX(-50%);
-            color: #444;
-            font-size: 12px;
-            letter-spacing: 1px;
-            z-index: 10;
-            text-align: center;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
+            .click-hint {
+        position: fixed;
+        top: 80%;
+        left: 50%;
+        transform: translateX(-50%);
+        color: #444;
+        font-size: 12px;
+        letter-spacing: 1px;
+        z-index: 10;
+        text-align: center;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+    }
+
+.click-hint.hide {
+    opacity: 0 !important;
+}
 
         .click-hint.show {
             opacity: 1;
@@ -765,28 +769,28 @@
             }
         }
 
-        window.addEventListener('scroll', () => {
-            const scrollY = window.scrollY;
-            const heroHeight = heroSection.offsetHeight;
-            
-            // Nav background on scroll
-            if(scrollY > 100) {
-                nav.classList.add('scrolled');
-            } else {
-                nav.classList.remove('scrolled');
-            }
-            
-            // Parallax effect - keep canvas centered and fade out
-            const opacity = Math.max(0, 1 - (scrollY / heroHeight));
-            sandCanvas.style.opacity = opacity;
-            
-            // Hide hints after scrolling
-            if(scrollY > 50) {
-                scrollHint.style.opacity = '0';
-            } else {
-                scrollHint.style.opacity = '0.6';
-            }
-        });
+            window.addEventListener('scroll', () => {
+        const scrollY = window.scrollY;
+        const heroHeight = heroSection.offsetHeight;
+        
+        if(scrollY > 100) {
+            nav.classList.add('scrolled');
+        } else {
+            nav.classList.remove('scrolled');
+        }
+        
+        const opacity = Math.max(0, 1 - (scrollY / heroHeight));
+        sandCanvas.style.opacity = opacity;
+        
+        // Hide both hints when scrolling
+        if(scrollY > 50) {
+            scrollHint.style.opacity = '0';
+            clickHint.classList.add('hide');  // ADD THIS LINE
+        } else {
+            scrollHint.style.opacity = '0.6';
+            clickHint.classList.remove('hide');  // ADD THIS LINE
+        }
+    });
 
         // Smooth scroll for navigation links
         document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
