@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -673,18 +673,23 @@
         }
 
         function shrapStep(){
-            const G=0.15,DRAG=0.99;
-            for(let i=shrapnel.length-1;i>=0;i--){
-                const p=shrapnel[i];
-                p.vy+=G; p.vx*=DRAG; p.vy*=DRAG; p.x+=p.vx; p.y+=p.vy;
-                if(p.x<0||p.x>W||p.y>H){shrapnel.splice(i,1);continue;}
-                const gx=(p.x/CELL)|0,gy=(p.y/CELL)|0;
-                if(gy>=ROWS-1 || (gy>=0&&grid[gy+1]?.[gx])){
-                    if(gx>=0&&gx<COLS&&gy>=0&&gy<ROWS&&insideText(gx,gy))grid[gy][gx]=p.color;
-                    shrapnel.splice(i,1);
-                }
-            }
+    const G=0.15,DRAG=0.99;
+    for(let i=shrapnel.length-1;i>=0;i--){
+        const p=shrapnel[i];
+        p.vy+=G; p.vx*=DRAG; p.vy*=DRAG; p.x+=p.vx; p.y+=p.vy;
+        if(p.x<0||p.x>W||p.y>H){shrapnel.splice(i,1);continue;}
+        const gx=(p.x/CELL)|0,gy=(p.y/CELL)|0;
+        if(gy>=ROWS-1 || (gy>=0&&grid[gy+1]?.[gx])){
+            if(gx>=0&&gx<COLS&&gy>=0&&gy<ROWS&&insideText(gx,gy))grid[gy][gx]=p.color;
+            shrapnel.splice(i,1);
         }
+    }
+    
+    // Limit shrapnel array size
+    if(shrapnel.length > 500) {
+        shrapnel = shrapnel.slice(0, 500);
+    }
+}
 
         function draw(){
             ctx.fillStyle="#000";
@@ -723,35 +728,49 @@
         }
 
         function loop(){
-            if(frame%SHAPE_RATE===0)spawnShape();
-            if(Math.random()<BOMB_CHANCE)spawnBomb();
+    try {
+        if(frame%SHAPE_RATE===0)spawnShape();
+        if(Math.random()<BOMB_CHANCE)spawnBomb();
 
-            for(let i=falling.length-1;i>=0;i--){
-                const o=falling[i];
-                // Slower falling - only 1 cell per frame
-                if(fits(o,0,1)){
-                    o.y++;
-                }
-                
-                if(!fits(o,0,1)){
-                    if(o.type==="bomb")explode(o.x,o.y,BOMB_RADIUS);
-                    else stamp(o,o.color);
-                    falling.splice(i,1);
-                }
+        for(let i=falling.length-1;i>=0;i--){
+            const o=falling[i];
+            
+            // Faster falling - 2 cells per frame
+            let fallDistance = 0;
+            while(fallDistance < 2 && fits(o,0,1)){
+                o.y++;
+                fallDistance++;
             }
             
-            sandStep(); 
-            shrapStep(); 
-            draw();
-            
-            // Check if we should show click hint
-            if(frame % 60 === 0){  // Check every 60 frames
-                checkNameFilled();
+            if(!fits(o,0,1)){
+                if(o.type==="bomb")explode(o.x,o.y,BOMB_RADIUS);
+                else stamp(o,o.color);
+                falling.splice(i,1);
             }
-            
-            frame++; 
-            requestAnimationFrame(loop);
         }
+        
+        // Limit arrays for performance
+        if(falling.length > 300) {
+            falling = falling.slice(0, 300);
+        }
+        
+        sandStep(); 
+        shrapStep(); 
+        draw();
+        
+        // Check if we should show click hint
+        if(frame % 60 === 0){
+            checkNameFilled();
+        }
+        
+        frame++; 
+    } catch(e) {
+        console.error("Animation error:", e);
+    }
+    
+    // CRITICAL: Always continue loop
+    requestAnimationFrame(loop);
+}
 
         loop();
 
