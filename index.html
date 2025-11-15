@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -18,23 +18,15 @@
             overflow-x: hidden;
         }
 
-        /* Sand Hero Section with Parallax */
-        #hero-section {
-            position: relative;
-            height: 100vh;
-            overflow: hidden;
-        }
-
+        /* Full-page canvas behind everything */
         #sand-canvas {
             position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            top: 0;
+            left: 0;
             width: 100%;
-            height: 100vh;
+            height: 100%;
             z-index: 1;
-            transition: opacity 0.3s ease;
-            cursor: crosshair;
+            pointer-events: none;
         }
 
         .scroll-hint {
@@ -48,9 +40,10 @@
             z-index: 10;
             animation: bounce 2s infinite;
             transition: opacity 0.3s ease;
+            pointer-events: none;
         }
 
-                .scroll-hint2 {
+        .scroll-hint2 {
             position: fixed;
             bottom: 70px;
             left: 50%;
@@ -61,29 +54,7 @@
             z-index: 10;
             animation: bounce 2s infinite;
             transition: opacity 0.3s ease;
-        }
-
-            .click-hint {
-        position: fixed;
-        top: 80%;
-        left: 50%;
-        transform: translateX(-50%);
-        color: #444;
-        font-size: 12px;
-        letter-spacing: 1px;
-        z-index: 10;
-        text-align: center;
-        pointer-events: none;
-        opacity: 0;
-        transition: opacity 0.5s ease;
-    }
-
-.click-hint.hide {
-    opacity: 0 !important;
-}
-
-        .click-hint.show {
-            opacity: 1;
+            pointer-events: none;
         }
 
         @keyframes bounce {
@@ -104,6 +75,7 @@
             align-items: center;
             background: transparent;
             transition: background 0.3s ease, padding 0.3s ease;
+            pointer-events: auto;
         }
 
         nav.scrolled {
@@ -132,17 +104,30 @@
             opacity: 0.6;
         }
 
+        /* Hero Section */
+        #hero-section {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+            pointer-events: none;
+        }
+
         /* Content Sections */
         .content-wrapper {
             position: relative;
             z-index: 2;
-            background: #000;
+            pointer-events: auto;
         }
 
         section {
             min-height: 100vh;
             padding: 120px 60px;
             position: relative;
+            background: rgba(0,0,0,0.85);
+            margin-bottom: 100px;
         }
 
         section h2 {
@@ -154,7 +139,7 @@
 
         /* About Section */
         #about {
-            background: linear-gradient(180deg, #000 0%, #1a1a1a 100%);
+            background: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, rgba(26,26,26,0.9) 100%);
         }
 
         .about-content {
@@ -171,7 +156,7 @@
 
         /* Projects Grid */
         #projects {
-            background: #1a1a1a;
+            background: rgba(26,26,26,0.9);
         }
 
         .projects-grid {
@@ -238,7 +223,7 @@
 
         /* Skills Section */
         #skills {
-            background: #0a0a0a;
+            background: rgba(10,10,10,0.9);
         }
 
         .skills-grid {
@@ -273,12 +258,13 @@
 
         /* Contact Section */
         #contact {
-            background: #000;
+            background: rgba(0,0,0,0.9);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
+            margin-bottom: 0;
         }
 
         .contact-content {
@@ -347,6 +333,9 @@
     </style>
 </head>
 <body>
+    <!-- Full-page sand canvas -->
+    <canvas id="sand-canvas"></canvas>
+
     <!-- Navigation -->
     <nav id="nav">
         <div class="logo">ZEKE</div>
@@ -358,12 +347,8 @@
         </div>
     </nav>
 
-    <!-- Sand Animation Hero -->
+    <!-- Hero Section -->
     <div id="hero-section">
-        <canvas id="sand-canvas"></canvas>
-        <!-- <div class="click-hint" id="click-hint">
-            <div>CLICK ME</div> -->
-        </div>
         <div class="scroll-hint2">CLICK TO EXPLODE</div>
         <div class="scroll-hint">SCROLL TO EXPLORE</div>
     </div>
@@ -384,12 +369,11 @@
         <section id="projects">
             <h2>Selected Work</h2>
             <div class="projects-grid">
-                <!-- Project 1 - Replace with your work -->
                 <div class="project-card">
                     <div class="project-image">PROJECT IMAGE 1</div>
                     <div class="project-info">
                         <h3>Project Title 1</h3>
-                        <p>Brief description of your project. Explain the problem, your solution, and the impact. Keep it concise but compelling.</p>
+                        <p>Brief description of your project. Explain the problem, your solution, and the impact.</p>
                         <div class="project-tags">
                             <span class="tag">Product Design</span>
                             <span class="tag">CAD</span>
@@ -398,12 +382,11 @@
                     </div>
                 </div>
 
-                <!-- Project 2 -->
                 <div class="project-card">
                     <div class="project-image">PROJECT IMAGE 2</div>
                     <div class="project-info">
                         <h3>Project Title 2</h3>
-                        <p>Brief description of your project. Explain the problem, your solution, and the impact. Keep it concise but compelling.</p>
+                        <p>Brief description of your project. Explain the problem, your solution, and the impact.</p>
                         <div class="project-tags">
                             <span class="tag">UX Design</span>
                             <span class="tag">User Research</span>
@@ -412,12 +395,11 @@
                     </div>
                 </div>
 
-                <!-- Project 3 -->
                 <div class="project-card">
                     <div class="project-image">PROJECT IMAGE 3</div>
                     <div class="project-info">
                         <h3>Project Title 3</h3>
-                        <p>Brief description of your project. Explain the problem, your solution, and the impact. Keep it concise but compelling.</p>
+                        <p>Brief description of your project. Explain the problem, your solution, and the impact.</p>
                         <div class="project-tags">
                             <span class="tag">Sustainable Design</span>
                             <span class="tag">Materials</span>
@@ -425,8 +407,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Add more projects as needed -->
             </div>
         </section>
 
@@ -495,43 +475,60 @@
     </div>
 
     <script>
-        /* ----------  SAND SIMULATION  ---------- */
+        /* ----------  FULL-PAGE SAND SIMULATION WITH COLLISION DETECTION  ---------- */
         const CELL = 3;
-        const SHAPE_RATE = 1;  // Spawn sand every 2 frames (faster)
+        const SHAPE_RATE = 1;
         const BOMB_CHANCE = 0.0005;
-        const BOMB_RADIUS = 8;
-        const CLICK_RADIUS = 15;
+        const BOMB_RADIUS = 15;
+        const CLICK_RADIUS = 20;
         const COLORS = ["#AEAEAE","#D7D7D7","#EBEBEB","#FFFFFD","#FFFFFF"];
 
         const canvas = document.getElementById("sand-canvas");
         const ctx = canvas.getContext("2d");
+        canvas.style.pointerEvents = 'auto';  // Allow clicks
 
-        let COLS, ROWS, W, H, grid, textMask, falling=[], shrapnel=[], frame=0;
-        let clickHintShown = false;
+        let COLS, ROWS, W, H, grid, textMask, collisionMask, falling=[], shrapnel=[], frame=0;
+        
         resize();
         window.addEventListener("resize", resize);
+        window.addEventListener("scroll", updateCollisionMask);
 
         function resize(){
+            // Canvas covers entire document height
+            const docHeight = Math.max(
+                document.body.scrollHeight,
+                document.documentElement.scrollHeight,
+                document.body.offsetHeight,
+                document.documentElement.offsetHeight,
+                document.body.clientHeight,
+                document.documentElement.clientHeight
+            );
+            
             COLS = (window.innerWidth / CELL)|0;
-            ROWS = (window.innerHeight / CELL)|0;
+            ROWS = (docHeight / CELL)|0;
             canvas.width = W = COLS*CELL;
             canvas.height = H = ROWS*CELL;
+            canvas.style.height = docHeight + 'px';
+            
             grid = Array.from({length:ROWS},()=>Array(COLS).fill(null));
+            collisionMask = Array.from({length:ROWS},()=>Array(COLS).fill(false));
+            
             createTextMask();
+            updateCollisionMask();
         }
 
         function createTextMask(){
             textMask = Array.from({length:ROWS},()=>Array(COLS).fill(false));
             
-            // Safety check - ensure canvas has valid dimensions
             if(W === 0 || H === 0) return;
             
             const tempCanvas = document.createElement("canvas");
             const tempCtx = tempCanvas.getContext("2d");
             tempCanvas.width = W;
-            tempCanvas.height = H;
+            const viewportHeight = window.innerHeight;
+            tempCanvas.height = viewportHeight;
             
-            let fontSize = Math.floor(H * 0.75);
+            let fontSize = Math.floor(viewportHeight * 0.75);
             tempCtx.font = `bold ${fontSize}px Arial`;
             let metrics = tempCtx.measureText("ZEKE");
             if(metrics.width > W * 0.9){
@@ -542,12 +539,13 @@
             tempCtx.font = `bold ${fontSize}px Arial`;
             tempCtx.textAlign = "center";
             tempCtx.textBaseline = "middle";
-            tempCtx.fillText("ZEKE", W/2, H/2);
+            tempCtx.fillText("ZEKE", W/2, viewportHeight/2);
             
-            const imageData = tempCtx.getImageData(0, 0, W, H);
+            const imageData = tempCtx.getImageData(0, 0, W, viewportHeight);
             const data = imageData.data;
             
-            for(let y = 0; y < ROWS; y++){
+            const rowsInViewport = (viewportHeight / CELL)|0;
+            for(let y = 0; y < rowsInViewport; y++){
                 for(let x = 0; x < COLS; x++){
                     const pixelIndex = (y * CELL * W + x * CELL) * 4;
                     const alpha = data[pixelIndex + 3];
@@ -556,10 +554,37 @@
             }
         }
 
+        function updateCollisionMask(){
+            // Reset collision mask
+            for(let y=0; y<ROWS; y++){
+                for(let x=0; x<COLS; x++){
+                    collisionMask[y][x] = false;
+                }
+            }
+            
+            // Detect HTML elements and mark collision areas
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                const scrollY = window.scrollY;
+                
+                const startY = ((rect.top + scrollY) / CELL)|0;
+                const endY = ((rect.bottom + scrollY) / CELL)|0;
+                const startX = (rect.left / CELL)|0;
+                const endX = (rect.right / CELL)|0;
+                
+                for(let y = Math.max(0, startY); y < Math.min(ROWS, endY); y++){
+                    for(let x = Math.max(0, startX); x < Math.min(COLS, endX); x++){
+                        collisionMask[y][x] = true;
+                    }
+                }
+            });
+        }
+
         canvas.addEventListener("click",e=>{
             const rect=canvas.getBoundingClientRect();
             const cx=((e.clientX-rect.left)/CELL)|0;
-            const cy=((e.clientY-rect.top)/CELL)|0;
+            const cy=((e.clientY-rect.top + window.scrollY)/CELL)|0;
             explode(cx,cy,CLICK_RADIUS);
         });
 
@@ -579,18 +604,20 @@
 
         function spawnShape(){
             const shape=makeShape();
+            const scrollY = (window.scrollY / CELL)|0;
             const startX = Math.floor(Math.random() * (COLS - shape[0].length));
             falling.push({type:"shape",shape,color:COLORS[(Math.random()*COLORS.length)|0],
-                        x:startX, y:-shape.length});
+                        x:startX, y:scrollY - shape.length});
         }
 
         function spawnBomb(){
+            const scrollY = (window.scrollY / CELL)|0;
             const randomCol = Math.floor(Math.random() * COLS);
-            falling.push({type:"bomb",shape:[[1]],color:"#ff4757", x:randomCol, y:-1});
+            falling.push({type:"bomb",shape:[[1]],color:"#ff4757", x:randomCol, y:scrollY - 1});
         }
 
-        const empty=(x,y)=>y<ROWS&&x>=0&&x<COLS&&!grid[y][x];
         const insideText=(x,y)=>y<ROWS&&x>=0&&x<COLS&&textMask[y][x];
+        const isCollision=(x,y)=>y>=0&&y<ROWS&&x>=0&&x<COLS&&collisionMask[y][x];
 
         function fits(o,dx,dy){
             const {shape,x,y}=o;
@@ -599,15 +626,20 @@
                     if(shape[r][c]){
                         const nx = x+c+dx;
                         const ny = y+r+dy;
+                        
+                        if(ny >= ROWS) return false;
                         if(ny >= 0 && ny < ROWS && nx >= 0 && nx < COLS){
                             if(grid[ny][nx]) return false;
-                            if(insideText(nx,ny) && ny+1 < ROWS && grid[ny+1]?.[nx]) return false;
-                            if(insideText(nx,ny) && ny+1 < ROWS && !insideText(nx,ny+1) && !grid[ny+1]?.[nx]){
-                                return false;
+                            
+                            // Check text mask collision (ZEKE letters)
+                            if(insideText(nx,ny)){
+                                if(ny+1 < ROWS && grid[ny+1]?.[nx]) return false;
+                                if(ny+1 < ROWS && !insideText(nx,ny+1) && !grid[ny+1]?.[nx]) return false;
+                                if(ny >= ROWS-1) return false;
                             }
-                            if(insideText(nx,ny) && ny >= ROWS-1) return false;
-                        } else if(ny >= ROWS) {
-                            return false;
+                            
+                            // Check HTML element collision
+                            if(isCollision(nx,ny)) return false;
                         }
                     }
                 }
@@ -616,15 +648,24 @@
         }
 
         function stamp(o,val){
-            const {shape,x,y}=o;
-            for(let r=0;r<shape.length;r++)
-                for(let c=0;c<shape[0].length;c++)
-                    if(shape[r][c]&&y+r>=0&&insideText(x+c,y+r))
-                        grid[y+r][x+c]=val;
+            const {shape,x,y,type}=o;
+            for(let r=0;r<shape.length;r++){
+                for(let c=0;c<shape[0].length;c++){
+                    if(shape[r][c]&&y+r>=0&&y+r<ROWS){
+                        const nx = x+c;
+                        const ny = y+r;
+                        
+                        // Only stamp if inside ZEKE or not in collision zone
+                        if(insideText(nx,ny) || !isCollision(nx,ny)){
+                            grid[ny][nx]=val;
+                        }
+                    }
+                }
+            }
         }
 
         function explode(cx,cy,R){
-            for(let y=Math.max(0,cy-R);y<=Math.min(ROWS-1,cy+R);y++)
+            for(let y=Math.max(0,cy-R);y<=Math.min(ROWS-1,cy+R);y++){
                 for(let x=Math.max(0,cx-R);x<=Math.min(COLS-1,cx+R);x++){
                     const dx=x-cx,dy=y-cy;
                     if(dx*dx+dy*dy<=R*R&&grid[y][x]){
@@ -639,30 +680,44 @@
                         grid[y][x]=null;
                     }
                 }
+            }
         }
 
         function sandStep(){
             for(let y=ROWS-2;y>=0;y--){
                 for(let x=0;x<COLS;x++){
-                    if(grid[y][x] && insideText(x,y)){
+                    if(grid[y][x]){
                         let moved = false;
-                        if(insideText(x,y+1) && !grid[y+1][x]){
+                        
+                        const canMoveDown = y+1<ROWS && !grid[y+1][x] && 
+                                          (insideText(x,y+1) || !isCollision(x,y+1));
+                        const canMoveDownLeft = y+1<ROWS && x-1>=0 && !grid[y+1][x-1] && 
+                                               (insideText(x-1,y+1) || !isCollision(x-1,y+1));
+                        const canMoveDownRight = y+1<ROWS && x+1<COLS && !grid[y+1][x+1] && 
+                                                (insideText(x+1,y+1) || !isCollision(x+1,y+1));
+                        
+                        if(canMoveDown){
                             grid[y+1][x]=grid[y][x];
                             grid[y][x]=null;
                             moved = true;
-                        } else if(insideText(x-1,y+1) && !grid[y+1][x-1]){
+                        } else if(canMoveDownLeft){
                             grid[y+1][x-1]=grid[y][x];
                             grid[y][x]=null;
                             moved = true;
-                        } else if(insideText(x+1,y+1) && !grid[y+1][x+1]){
+                        } else if(canMoveDownRight){
                             grid[y+1][x+1]=grid[y][x];
                             grid[y][x]=null;
                             moved = true;
-                        } else if(!moved && Math.random() < 0.25){  // Faster horizontal spreading
+                        } else if(!moved && Math.random() < 0.25){
                             const dir = Math.random() < 0.5 ? -1 : 1;
-                            if(insideText(x+dir,y) && !grid[y][x+dir]){
-                                if((insideText(x+dir,y+1) && grid[y+1][x+dir]) || !insideText(x+dir,y+1)){
-                                    grid[y][x+dir]=grid[y][x];
+                            const nx = x+dir;
+                            if(nx>=0 && nx<COLS && !grid[y][nx] && 
+                               (insideText(nx,y) || !isCollision(nx,y))){
+                                const hasSupport = (y+1<ROWS && grid[y+1][nx]) || 
+                                                  (y+1<ROWS && isCollision(nx,y+1)) ||
+                                                  (insideText(nx,y) && y+1<ROWS && !insideText(nx,y+1));
+                                if(hasSupport){
+                                    grid[y][nx]=grid[y][x];
                                     grid[y][x]=null;
                                 }
                             }
@@ -673,37 +728,50 @@
         }
 
         function shrapStep(){
-    const G=0.15,DRAG=0.99;
-    for(let i=shrapnel.length-1;i>=0;i--){
-        const p=shrapnel[i];
-        p.vy+=G; p.vx*=DRAG; p.vy*=DRAG; p.x+=p.vx; p.y+=p.vy;
-        if(p.x<0||p.x>W||p.y>H){shrapnel.splice(i,1);continue;}
-        const gx=(p.x/CELL)|0,gy=(p.y/CELL)|0;
-        if(gy>=ROWS-1 || (gy>=0&&grid[gy+1]?.[gx])){
-            if(gx>=0&&gx<COLS&&gy>=0&&gy<ROWS&&insideText(gx,gy))grid[gy][gx]=p.color;
-            shrapnel.splice(i,1);
+            const G=0.15,DRAG=0.99;
+            for(let i=shrapnel.length-1;i>=0;i--){
+                const p=shrapnel[i];
+                p.vy+=G; p.vx*=DRAG; p.vy*=DRAG; p.x+=p.vx; p.y+=p.vy;
+                
+                if(p.x<0||p.x>W||p.y>H){shrapnel.splice(i,1);continue;}
+                
+                const gx=(p.x/CELL)|0,gy=(p.y/CELL)|0;
+                
+                if(gy>=ROWS-1 || (gy>=0 && gy<ROWS && (grid[gy+1]?.[gx] || isCollision(gx,gy+1)))){
+                    if(gx>=0&&gx<COLS&&gy>=0&&gy<ROWS){
+                        if(insideText(gx,gy) || !isCollision(gx,gy)){
+                            grid[gy][gx]=p.color;
+                        }
+                    }
+                    shrapnel.splice(i,1);
+                }
+            }
+            
+            if(shrapnel.length > 500) {
+                shrapnel = shrapnel.slice(0, 500);
+            }
         }
-    }
-    
-    // Limit shrapnel array size
-    if(shrapnel.length > 500) {
-        shrapnel = shrapnel.slice(0, 500);
-    }
-}
 
         function draw(){
-            ctx.fillStyle="#000";
-            ctx.fillRect(0,0,W,H);
+            // Clear only visible viewport
+            const scrollY = window.scrollY;
+            const viewportStartRow = (scrollY / CELL)|0;
+            const viewportEndRow = ((scrollY + window.innerHeight) / CELL)|0;
             
-            for(let y=0;y<ROWS;y++){
+            ctx.fillStyle="#000";
+            ctx.fillRect(0, scrollY, W, window.innerHeight);
+            
+            // Draw only visible sand
+            for(let y=Math.max(0,viewportStartRow-10); y<Math.min(ROWS,viewportEndRow+10); y++){
                 for(let x=0;x<COLS;x++){
-                    if(grid[y][x] && textMask[y][x]){
+                    if(grid[y][x]){
                         ctx.fillStyle=grid[y][x];
                         ctx.fillRect(x*CELL,y*CELL,CELL,CELL);
                     }
                 }
             }
             
+            // Draw falling shapes
             for(const o of falling){
                 ctx.fillStyle=o.color;
                 for(let r=0;r<o.shape.length;r++){
@@ -711,122 +779,82 @@
                         if(o.shape[r][c]){
                             const px = (o.x+c)*CELL;
                             const py = (o.y+r)*CELL;
-                            if(py >= 0 && py < H){
-                                ctx.fillRect(px, py, CELL, CELL);
-                            }
+                            ctx.fillRect(px, py, CELL, CELL);
                         }
                     }
                 }
             }
             
+            // Draw shrapnel
             for(const p of shrapnel){
-                if(p.y >= 0 && p.y < H){
-                    ctx.fillStyle=p.color;
-                    ctx.fillRect(p.x-1,p.y-1,2,2);
-                }
+                ctx.fillStyle=p.color;
+                ctx.fillRect(p.x-1,p.y-1,2,2);
             }
         }
 
         function loop(){
-    try {
-        if(frame%SHAPE_RATE===0)spawnShape();
-        if(Math.random()<BOMB_CHANCE)spawnBomb();
+            try {
+                if(frame%SHAPE_RATE===0)spawnShape();
+                if(Math.random()<BOMB_CHANCE)spawnBomb();
 
-        for(let i=falling.length-1;i>=0;i--){
-            const o=falling[i];
-            
-            // Faster falling - 2 cells per frame
-            let fallDistance = 0;
-            while(fallDistance < 2 && fits(o,0,1)){
-                o.y++;
-                fallDistance++;
+                for(let i=falling.length-1;i>=0;i--){
+                    const o=falling[i];
+                    
+                    let fallDistance = 0;
+                    while(fallDistance < 2 && fits(o,0,1)){
+                        o.y++;
+                        fallDistance++;
+                    }
+                    
+                    if(!fits(o,0,1)){
+                        if(o.type==="bomb")explode(o.x,o.y,BOMB_RADIUS);
+                        else stamp(o,o.color);
+                        falling.splice(i,1);
+                    }
+                }
+                
+                if(falling.length > 300) {
+                    falling = falling.slice(0, 300);
+                }
+                
+                sandStep(); 
+                shrapStep(); 
+                draw();
+                
+                frame++; 
+            } catch(e) {
+                console.error("Animation error:", e);
             }
             
-            if(!fits(o,0,1)){
-                if(o.type==="bomb")explode(o.x,o.y,BOMB_RADIUS);
-                else stamp(o,o.color);
-                falling.splice(i,1);
-            }
+            requestAnimationFrame(loop);
         }
-        
-        // Limit arrays for performance
-        if(falling.length > 300) {
-            falling = falling.slice(0, 300);
-        }
-        
-        sandStep(); 
-        shrapStep(); 
-        draw();
-        
-        // Check if we should show click hint
-        if(frame % 60 === 0){
-            checkNameFilled();
-        }
-        
-        frame++; 
-    } catch(e) {
-        console.error("Animation error:", e);
-    }
-    
-    // CRITICAL: Always continue loop
-    requestAnimationFrame(loop);
-}
 
         loop();
 
-        /* ----------  NAVIGATION & PARALLAX  ---------- */
+        /* ----------  NAVIGATION & SCROLL  ---------- */
         const nav = document.getElementById('nav');
-        const sandCanvas = document.getElementById('sand-canvas');
-        const heroSection = document.getElementById('hero-section');
-        const clickHint = document.getElementById('click-hint');
         const scrollHint = document.querySelector('.scroll-hint');
         const scrollHint2 = document.querySelector('.scroll-hint2');
 
-        // Show click hint after name has partially filled
-        function checkNameFilled(){
-            if(clickHintShown) return;
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
             
-            const totalTextCells = textMask.flat().filter(Boolean).length;
-            const filledTextCells = textMask.flat().filter((mask, i) => {
-                const y = Math.floor(i / COLS);
-                const x = i % COLS;
-                return mask && grid[y][x];
-            }).length;
-            
-            const completion = totalTextCells > 0 ? (filledTextCells / totalTextCells * 100) : 0;
-            
-            // Show hint after 30% filled
-            if(completion > 30 && !clickHintShown){
-                clickHint.classList.add('show');
-                clickHintShown = true;
-                // Keep it visible - don't auto-hide
+            if(scrollY > 100) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
             }
-        }
+            
+            if(scrollY > 50) {
+                scrollHint.style.opacity = '0';
+                scrollHint2.style.opacity = '0';
+            } else {
+                scrollHint.style.opacity = '0.6';
+                scrollHint2.style.opacity = '0.6';
+            }
+        });
 
-            window.addEventListener('scroll', () => {
-        const scrollY = window.scrollY;
-        const heroHeight = heroSection.offsetHeight;
-        
-        if(scrollY > 100) {
-            nav.classList.add('scrolled');
-        } else {
-            nav.classList.remove('scrolled');
-        }
-        
-        const opacity = Math.max(0, 1 - (scrollY / heroHeight));
-        sandCanvas.style.opacity = opacity;
-        
-        // Hide both hints when scrolling
-        if(scrollY > 50) {
-            scrollHint.style.opacity = '0';
-            scrollHint2.style.opacity = '0';
-        } else {
-            scrollHint.style.opacity = '0.6';
-            scrollHint2.style.opacity = '0.6';
-        }
-    });
-
-        // Smooth scroll for navigation links
+        // Smooth scroll
         document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
