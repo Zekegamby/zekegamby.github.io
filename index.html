@@ -50,6 +50,19 @@
             transition: opacity 0.3s ease;
         }
 
+                .scroll-hint2 {
+            position: fixed;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.6);
+            font-size: 14px;
+            letter-spacing: 2px;
+            z-index: 10;
+            animation: bounce 2s infinite;
+            transition: opacity 0.3s ease;
+        }
+
             .click-hint {
         position: fixed;
         top: 80%;
@@ -348,9 +361,10 @@
     <!-- Sand Animation Hero -->
     <div id="hero-section">
         <canvas id="sand-canvas"></canvas>
-        <div class="click-hint" id="click-hint">
-            <div>CLICK ME</div>
+        <!-- <div class="click-hint" id="click-hint">
+            <div>CLICK ME</div> -->
         </div>
+        <div class="scroll-hint2">CLICK TO EXPLODE</div>
         <div class="scroll-hint">SCROLL TO EXPLORE</div>
     </div>
 
@@ -747,6 +761,7 @@
         const heroSection = document.getElementById('hero-section');
         const clickHint = document.getElementById('click-hint');
         const scrollHint = document.querySelector('.scroll-hint');
+        const scrollHint2 = document.querySelector('.scroll-hint2');
 
         // Show click hint after name has partially filled
         function checkNameFilled(){
@@ -785,10 +800,10 @@
         // Hide both hints when scrolling
         if(scrollY > 50) {
             scrollHint.style.opacity = '0';
-            clickHint.classList.add('hide');  // ADD THIS LINE
+            scrollHint2.style.opacity = '0';
         } else {
             scrollHint.style.opacity = '0.6';
-            clickHint.classList.remove('hide');  // ADD THIS LINE
+            scrollHint2.style.opacity = '0.6';
         }
     });
 
