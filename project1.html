@@ -63,29 +63,29 @@
 
         /* Hero Section */
         .project-hero {
-            min-height: 35vh;
+            min-height: 25vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 110px 60px 40px;
-            background: linear-gradient(180deg, #0a0a0a 0%, #000 100%);
+            padding: 100px 60px 30px;
+            background: #000;
         }
 
         .project-hero h1 {
-            font-size: 56px;
+            font-size: 48px;
             font-weight: 300;
             letter-spacing: 2px;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .project-hero .subtitle {
-            font-size: 18px;
-            color: #999;
-            margin-bottom: 25px;
-            max-width: 700px;
-            line-height: 1.6;
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 20px;
+            max-width: 600px;
+            line-height: 1.5;
         }
 
         .project-tags {
@@ -107,9 +107,9 @@
         /* PDF Container */
         .pdf-container {
             width: 100%;
-            min-height: calc(100vh - 350px);
-            background: #0a0a0a;
-            padding: 40px;
+            min-height: 100vh;
+            background: #000;
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -117,11 +117,9 @@
 
         .pdf-container iframe {
             width: 100%;
-            max-width: 1200px;
-            height: 800px;
-            border: 1px solid #222;
-            border-radius: 8px;
-            background: #fff;
+            height: 100vh;
+            border: none;
+            background: #000;
         }
 
         /* Responsive */
@@ -131,23 +129,19 @@
             }
 
             .project-hero {
-                padding: 90px 30px 30px;
+                padding: 85px 30px 25px;
             }
 
             .project-hero h1 {
-                font-size: 36px;
+                font-size: 32px;
             }
 
             .project-hero .subtitle {
-                font-size: 16px;
-            }
-
-            .pdf-container {
-                padding: 20px;
+                font-size: 14px;
             }
 
             .pdf-container iframe {
-                height: 600px;
+                height: 100vh;
             }
         }
     </style>
