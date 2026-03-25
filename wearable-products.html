@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wearable / Interactive Products — Zeke</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #000; color: #fff; overflow-x: hidden; }
+
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            padding: 20px 60px; display: flex; justify-content: space-between; align-items: center;
+            background: rgba(0,0,0,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid #222;
+        }
+        nav .logo { font-size: 24px; font-weight: 700; letter-spacing: 3px; }
+        nav .back-link {
+            color: #fff; text-decoration: none; font-size: 14px; letter-spacing: 1px;
+            text-transform: uppercase; transition: opacity 0.3s ease; display: flex; align-items: center; gap: 8px;
+        }
+        nav .back-link:hover { opacity: 0.6; }
+        nav .back-link::before { content: "←"; font-size: 18px; }
+
+        .project-hero {
+            min-height: 35vh; display: flex; flex-direction: column; justify-content: center;
+            align-items: center; text-align: center; padding: 110px 60px 40px;
+            background: linear-gradient(180deg, #0a0a0a 0%, #000 100%);
+        }
+        .project-hero h1 { font-size: 52px; font-weight: 300; letter-spacing: 2px; margin-bottom: 14px; }
+        .project-hero .subtitle { font-size: 18px; color: #888; margin-bottom: 24px; max-width: 600px; line-height: 1.5; }
+        .project-tags { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+        .tag { background: #1a1a1a; padding: 8px 20px; border-radius: 20px; font-size: 12px; color: #aaa; border: 1px solid #333; }
+
+        .gallery-section { max-width: 1200px; margin: 0 auto; padding: 60px 60px 20px; }
+        .gallery-main { position: relative; background: #111; border-radius: 8px; overflow: hidden; margin-bottom: 20px; }
+        .gallery-main img { width: 100%; max-height: 75vh; object-fit: contain; display: block; }
+        .gallery-nav {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            background: rgba(255,255,255,0.1); border: none; color: #fff; font-size: 30px;
+            padding: 20px; cursor: pointer; transition: all 0.3s ease; z-index: 10; border-radius: 4px;
+        }
+        .gallery-nav:hover { background: rgba(255,255,255,0.2); }
+        .gallery-nav.prev { left: 20px; }
+        .gallery-nav.next { right: 20px; }
+        .gallery-counter {
+            position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+            background: rgba(0,0,0,0.7); padding: 8px 18px; border-radius: 20px; font-size: 13px; letter-spacing: 1px;
+        }
+        .gallery-thumbs {
+            display: flex; gap: 12px; overflow-x: auto; padding: 5px 0 15px;
+            scrollbar-width: thin; scrollbar-color: #333 #111;
+        }
+        .gallery-thumbs::-webkit-scrollbar { height: 6px; }
+        .gallery-thumbs::-webkit-scrollbar-track { background: #111; }
+        .gallery-thumbs::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+        .thumb {
+            min-width: 110px; height: 70px; background: #222; border-radius: 4px; cursor: pointer;
+            overflow: hidden; border: 2px solid transparent; transition: border-color 0.2s ease; flex-shrink: 0;
+        }
+        .thumb img { width: 100%; height: 100%; object-fit: cover; }
+        .thumb:hover { border-color: #666; }
+        .thumb.active { border-color: #fff; }
+
+        .video-section { max-width: 1200px; margin: 0 auto; padding: 20px 60px 60px; }
+        .video-section h2 { font-size: 28px; font-weight: 300; letter-spacing: 1px; margin-bottom: 20px; color: #ccc; }
+        .video-section video { width: 100%; border-radius: 8px; background: #111; }
+
+        .info-section { max-width: 1200px; margin: 0 auto; padding: 40px 60px 100px; }
+        .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 50px; }
+        .info-item h3 { font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: #666; margin-bottom: 8px; }
+        .info-item p { font-size: 16px; color: #ddd; }
+        .desc-section h2 { font-size: 30px; font-weight: 300; letter-spacing: 1px; margin-bottom: 16px; }
+        .desc-section p { font-size: 16px; line-height: 1.8; color: #bbb; margin-bottom: 16px; }
+
+        .nav-footer { text-align: center; padding: 60px; background: #0a0a0a; }
+        .nav-footer a { color: #fff; text-decoration: none; font-size: 16px; padding: 14px 36px; border: 1px solid #fff; border-radius: 4px; transition: all 0.3s ease; }
+        .nav-footer a:hover { background: #fff; color: #000; }
+
+        @media (max-width: 768px) {
+            nav { padding: 20px 30px; }
+            .project-hero { padding: 90px 30px 30px; }
+            .project-hero h1 { font-size: 34px; }
+            .gallery-section, .info-section, .video-section { padding-left: 30px; padding-right: 30px; }
+            .gallery-nav { padding: 14px; font-size: 22px; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">ZEKE</div>
+        <a href="index.html" class="back-link">Back to Portfolio</a>
+    </nav>
+
+    <div class="project-hero">
+        <h1>Wearable / Interactive Products</h1>
+        <p class="subtitle">A collection of wearable and interactive product explorations combining aesthetics, function, and light interaction.</p>
+        <div class="project-tags">
+            <span class="tag">Wearables</span>
+            <span class="tag">Interaction Design</span>
+            <span class="tag">Long Exposure</span>
+            <span class="tag">Fabrication</span>
+        </div>
+    </div>
+
+    <div class="gallery-section">
+        <div class="gallery-main">
+            <img id="main-img" src="images/wearable-products/closeedit.jpg" alt="Wearable Products">
+            <button class="gallery-nav prev" onclick="changeImg(-1)">&#8249;</button>
+            <button class="gallery-nav next" onclick="changeImg(1)">&#8250;</button>
+            <div class="gallery-counter"><span id="cur">1</span> / <span id="tot"></span></div>
+        </div>
+        <div class="gallery-thumbs" id="thumbs"></div>
+    </div>
+
+    <div class="video-section" id="video-wrap" style="display:none">
+        <h2>Demo</h2>
+        <video controls preload="none">
+            <source src="videos/wearable-products-demo.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <div class="info-section">
+        <div class="info-grid">
+            <div class="info-item"><h3>Type</h3><p>Wearable Design</p></div>
+            <div class="info-item"><h3>Process</h3><p>Fabrication, Long Exposure Photography</p></div>
+            <div class="info-item"><h3>Team</h3><p>Solo Project</p></div>
+        </div>
+        <div class="desc-section">
+            <h2>Overview</h2>
+            <p>This project explores wearable and interactive products that respond to the body and its movement. The work investigates how light, motion, and material can be integrated into wearable forms to create dynamic visual experiences.</p>
+            <p>Long-exposure photography was used to document the light trails produced during use, revealing the invisible pathways of motion embedded in the design. The process blurs the boundary between product photography and performance documentation.</p>
+        </div>
+    </div>
+
+    <div class="nav-footer">
+        <a href="order-in-chaos.html">Next Project →</a>
+    </div>
+
+    <script>
+        const imgs = [
+            'images/wearable-products/closeedit.jpg',
+            'images/wearable-products/closeedit.jpeg',
+            'images/wearable-products/closeedit-large.jpeg',
+            'images/wearable-products/fingersfaredited.jpg',
+            'images/wearable-products/fingersfaredited.jpeg',
+            'images/wearable-products/fingersfaredited-large.jpeg',
+            'images/wearable-products/fingersfaredited-small.jpeg',
+            'images/wearable-products/longexpoedit.jpg',
+            'images/wearable-products/longexpoedit.jpeg',
+            'images/wearable-products/longexpoedit-large.jpeg',
+            'images/wearable-products/longexpoedit-small.jpeg',
+            'images/wearable-products/progressfingers.jpg',
+            'images/wearable-products/progressfingers-small.jpeg',
+            'images/wearable-products/zoomedprogress.jpg'
+        ];
+
+        // Deduplicate by showing only unique "base" images
+        const displayImgs = [
+            'images/wearable-products/closeedit-large.jpeg',
+            'images/wearable-products/fingersfaredited-large.jpeg',
+            'images/wearable-products/fingersfaredited.jpeg',
+            'images/wearable-products/longexpoedit-large.jpeg',
+            'images/wearable-products/longexpoedit.jpeg',
+            'images/wearable-products/progressfingers.jpg',
+            'images/wearable-products/zoomedprogress.jpg'
+        ];
+
+        let cur = 0;
+        const mainImg = document.getElementById('main-img');
+        const curEl = document.getElementById('cur');
+        const totEl = document.getElementById('tot');
+        const thumbsEl = document.getElementById('thumbs');
+
+        totEl.textContent = displayImgs.length;
+
+        displayImgs.forEach((src, i) => {
+            const t = document.createElement('div');
+            t.className = 'thumb' + (i === 0 ? ' active' : '');
+            t.innerHTML = `<img src="${src}" alt="Image ${i+1}" loading="lazy">`;
+            t.onclick = () => goTo(i);
+            thumbsEl.appendChild(t);
+        });
+
+        mainImg.src = displayImgs[0];
+
+        function goTo(i) {
+            cur = i;
+            mainImg.src = displayImgs[cur];
+            curEl.textContent = cur + 1;
+            document.querySelectorAll('.thumb').forEach((t, idx) => t.classList.toggle('active', idx === cur));
+            document.querySelectorAll('.thumb')[cur].scrollIntoView({ behavior: 'smooth', inline: 'center' });
+        }
+
+        function changeImg(dir) {
+            cur = (cur + dir + displayImgs.length) % displayImgs.length;
+            goTo(cur);
+        }
+
+        document.addEventListener('keydown', e => {
+            if (e.key === 'ArrowLeft') changeImg(-1);
+            if (e.key === 'ArrowRight') changeImg(1);
+        });
+
+        fetch('videos/wearable-products-demo.mp4', { method: 'HEAD' })
+            .then(r => { if (r.ok) document.getElementById('video-wrap').style.display = 'block'; })
+            .catch(() => {});
+    </script>
+</body>
+</html>
