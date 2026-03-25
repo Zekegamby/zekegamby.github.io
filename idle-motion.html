@@ -27,7 +27,7 @@
             background: linear-gradient(180deg, #0a0a0a 0%, #000 100%);
         }
         .project-hero h1 { font-size: 52px; font-weight: 300; letter-spacing: 2px; margin-bottom: 14px; }
-        .project-hero .subtitle { font-size: 18px; color: #888; margin-bottom: 24px; max-width: 600px; line-height: 1.5; }
+        .project-hero .subtitle { font-size: 18px; color: #888; margin-bottom: 24px; max-width: 640px; line-height: 1.5; }
         .project-tags { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
         .tag { background: #1a1a1a; padding: 8px 20px; border-radius: 20px; font-size: 12px; color: #aaa; border: 1px solid #333; }
 
@@ -61,9 +61,12 @@
         .thumb:hover { border-color: #666; }
         .thumb.active { border-color: #fff; }
 
-        .video-section { max-width: 1200px; margin: 0 auto; padding: 20px 60px 60px; }
-        .video-section h2 { font-size: 28px; font-weight: 300; letter-spacing: 1px; margin-bottom: 20px; color: #ccc; }
+        .section-divider { max-width: 1200px; margin: 40px auto 0; padding: 0 60px; }
+        .section-divider h2 { font-size: 28px; font-weight: 300; letter-spacing: 1px; color: #ccc; margin-bottom: 20px; padding-top: 40px; border-top: 1px solid #222; }
+
+        .video-section { max-width: 1200px; margin: 0 auto; padding: 0 60px 40px; }
         .video-section video { width: 100%; border-radius: 8px; background: #111; }
+        .video-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 
         .info-section { max-width: 1200px; margin: 0 auto; padding: 40px 60px 100px; }
         .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 50px; }
@@ -71,6 +74,7 @@
         .info-item p { font-size: 16px; color: #ddd; }
         .desc-section h2 { font-size: 30px; font-weight: 300; letter-spacing: 1px; margin-bottom: 16px; }
         .desc-section p { font-size: 16px; line-height: 1.8; color: #bbb; margin-bottom: 16px; }
+        .desc-section h3 { font-size: 20px; font-weight: 300; letter-spacing: 1px; margin: 32px 0 12px; color: #ddd; }
 
         .nav-footer { text-align: center; padding: 60px; background: #0a0a0a; }
         .nav-footer a { color: #fff; text-decoration: none; font-size: 16px; padding: 14px 36px; border: 1px solid #fff; border-radius: 4px; transition: all 0.3s ease; }
@@ -80,8 +84,9 @@
             nav { padding: 20px 30px; }
             .project-hero { padding: 90px 30px 30px; }
             .project-hero h1 { font-size: 34px; }
-            .gallery-section, .info-section, .video-section { padding-left: 30px; padding-right: 30px; }
+            .gallery-section, .info-section, .video-section, .section-divider { padding-left: 30px; padding-right: 30px; }
             .gallery-nav { padding: 14px; font-size: 22px; }
+            .video-pair { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -93,15 +98,17 @@
 
     <div class="project-hero">
         <h1>Idle Motion</h1>
-        <p class="subtitle">A fidget toy and cultural probe research project exploring habit, material culture, and the objects we hold.</p>
+        <p class="subtitle">A two-part project: a cultural probe exploring fidget objects and everyday habit, and a kinetic sculpture of fingers in perpetual circular motion.</p>
         <div class="project-tags">
-            <span class="tag">Research</span>
             <span class="tag">Cultural Probe</span>
+            <span class="tag">Research</span>
+            <span class="tag">Kinetic Sculpture</span>
             <span class="tag">UX Design</span>
-            <span class="tag">Fidget Design</span>
+            <span class="tag">Fabrication</span>
         </div>
     </div>
 
+    <!-- Gallery: Cultural Probe -->
     <div class="gallery-section">
         <div class="gallery-main">
             <img id="main-img" src="images/idle-motion/frontcover.jpeg" alt="Idle Motion">
@@ -112,25 +119,42 @@
         <div class="gallery-thumbs" id="thumbs"></div>
     </div>
 
-    <div class="video-section" id="video-wrap" style="display:none">
+    <!-- Videos -->
+    <div class="section-divider">
         <h2>Documentation</h2>
-        <video controls preload="none">
-            <source src="videos/idle-motion-demo.mp4" type="video/mp4">
-        </video>
+    </div>
+    <div class="video-section">
+        <div class="video-pair" id="video-pair">
+            <div id="video-probe-wrap">
+                <video controls preload="none">
+                    <source src="videos/idle-motion-demo.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div id="video-sculpture-wrap">
+                <video controls preload="none">
+                    <source src="videos/idle-motion-fingers.mp4" type="video/mp4">
+                </video>
+            </div>
+        </div>
     </div>
 
     <div class="info-section">
         <div class="info-grid">
-            <div class="info-item"><h3>Type</h3><p>Research + Product Design</p></div>
+            <div class="info-item"><h3>Type</h3><p>Research + Sculpture</p></div>
             <div class="info-item"><h3>Method</h3><p>Cultural Probe, Observation</p></div>
-            <div class="info-item"><h3>Output</h3><p>Zine, Prototype Objects</p></div>
+            <div class="info-item"><h3>Output</h3><p>Zine, Kinetic Sculpture</p></div>
             <div class="info-item"><h3>Team</h3><p>Solo Project</p></div>
         </div>
         <div class="desc-section">
             <h2>Overview</h2>
-            <p>Idle Motion is a research-driven design project that investigates the role of fidget objects in everyday life. Using cultural probe methodology, participants were given a set of fidget toys and asked to interact with, rank, and respond to them over several days.</p>
+
+            <h3>Part I — Cultural Probe</h3>
+            <p>The first part of Idle Motion is a research-driven design project investigating the role of fidget objects in everyday life. Using cultural probe methodology, participants were given a set of fidget toys and asked to interact with, rank, and respond to them over several days.</p>
             <p>Observations and material gathered from the probe were compiled into a zine documenting patterns, preferences, and behaviors — revealing how tactile habits reflect personality, focus, and cultural context.</p>
-            <p>The project sits at the intersection of product design, ethnographic research, and material culture.</p>
+
+            <h3>Part II — Kinetic Sculpture</h3>
+            <p>The second part is a kinetic sculpture built around a loop of fingers in continuous circular rotation. The piece translates the subconscious, repetitive motion of fidgeting into a mechanical, perpetual form — making visible what is usually invisible and automatic.</p>
+            <p>Together, the two parts frame idle motion as both a subject of inquiry and a material phenomenon: something observed and documented in Part I, and physically embodied in Part II.</p>
         </div>
     </div>
 
@@ -194,9 +218,16 @@
             if (e.key === 'ArrowRight') changeImg(1);
         });
 
-        fetch('videos/idle-motion-demo.mp4', { method: 'HEAD' })
-            .then(r => { if (r.ok) document.getElementById('video-wrap').style.display = 'block'; })
-            .catch(() => {});
+        // If either video file is missing, collapse to single-column
+        Promise.all([
+            fetch('videos/idle-motion-demo.mp4', { method: 'HEAD' }),
+            fetch('videos/idle-motion-fingers.mp4', { method: 'HEAD' })
+        ]).then(([r1, r2]) => {
+            if (!r1.ok) document.getElementById('video-probe-wrap').style.display = 'none';
+            if (!r2.ok) document.getElementById('video-sculpture-wrap').style.display = 'none';
+            if (!r1.ok && !r2.ok) document.getElementById('video-pair').closest('.video-section').style.display = 'none';
+            else if (!r1.ok || !r2.ok) document.getElementById('video-pair').style.gridTemplateColumns = '1fr';
+        }).catch(() => {});
     </script>
 </body>
 </html>
