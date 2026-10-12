@@ -10,7 +10,7 @@ const readouts = [0, 1, 2].map(i => $(`angle-${i}`));
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 let target = { angles: [14, 24, 16], sway: 0 };
 let pose = { angles: [...target.angles], sway: 0 };
-let renderer, stream, worker, initTimer, frameTimer, raf;
+let renderer, stream, worker, initTimer, frameTimer, raf, cancelVisibilityWait;
 let state = 'manual', generation = 0, busy = false, demo = false;
 let lastFrameTime = -1, lastSent = 0, lastSeen = 0, previousTime = 0, lastReadout = 0;
 let pointer = null, dirty = true, demoStart = 0, trackingLabel = '';
@@ -35,6 +35,7 @@ function updateSliders() {
 }
 function stopCamera(message = 'Camera off. Explore the finger with the controls below.') {
   generation++;
+  cancelVisibilityWait?.();
   clearTimeout(initTimer); clearTimeout(frameTimer);
   worker?.terminate(); worker = null;
   stream?.getTracks().forEach(track => track.stop()); stream = null;
@@ -55,6 +56,24 @@ function cameraError(error) {
   if (error.name === 'NotReadableError') return 'The camera is busy or unavailable. Close other camera apps, then retry.';
   return 'The camera could not start. Try opening this page in Safari, Chrome, Edge or Firefox, or use the manual controls.';
 }
+function waitForPermissionSheetToClose() {
+  if (!document.hidden) return Promise.resolve(true);
+  return new Promise(resolve => {
+    let finished = false;
+    const finish = visible => {
+      if (finished) return;
+      finished = true;
+      clearTimeout(timer);
+      document.removeEventListener('visibilitychange', onVisibility);
+      cancelVisibilityWait = null;
+      resolve(visible);
+    };
+    const onVisibility = () => { if (!document.hidden) finish(true); };
+    const timer = setTimeout(() => finish(false), 5000);
+    cancelVisibilityWait = () => finish(false);
+    document.addEventListener('visibilitychange', onVisibility);
+  });
+}
 async function startCamera() {
   if (!window.isSecureContext || !navigator.mediaDevices?.getUserMedia) {
     setStatus('Camera access needs a supported browser over HTTPS. Open zekegamby.com in your browser, or use the manual controls.'); return;
@@ -64,15 +83,27 @@ async function startCamera() {
   }
   stopDemo();
   const session = ++generation;
-  state = 'starting'; cameraButton.textContent = 'Cancel camera';
+  // Permission sheets can hide the page. Keep this distinct from an active
+  // camera session, which must still stop when the visitor switches tabs.
+  state = 'requesting'; cameraButton.textContent = 'Cancel camera';
   setMode('Starting camera'); setStatus('Allow camera access when your browser asks.');
   try {
     const acquired = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user', width: { ideal: 640 }, height: { ideal: 480 }, frameRate: { ideal: 24, max: 30 } }, audio: false });
-    if (session !== generation || document.hidden) { acquired.getTracks().forEach(track => track.stop()); return; }
+    if (session !== generation) { acquired.getTracks().forEach(track => track.stop()); return; }
     stream = acquired;
     stream.getVideoTracks().forEach(track => track.addEventListener('ended', () => {
       if (session === generation) stopCamera('The camera disconnected. Reconnect it and try again, or use manual controls.');
     }, { once: true }));
+    while (document.hidden) {
+      // No video is processed while a system permission sheet covers the page.
+      acquired.getVideoTracks().forEach(track => { track.enabled = false; });
+      const visible = await waitForPermissionSheetToClose();
+      if (session !== generation) return;
+      if (!visible) { stopCamera('Camera stopped while this page was away. Return to the page and enable it again.'); return; }
+    }
+    acquired.getVideoTracks().forEach(track => { track.enabled = true; });
+    state = 'starting';
+    video.muted = true; video.playsInline = true;
     video.srcObject = stream; video.hidden = false; $('camera-placeholder').hidden = true;
     $('camera-label').textContent = 'Camera on';
     await video.play();
@@ -81,7 +112,7 @@ async function startCamera() {
     setMode('Loading tracker');
     $('manual-controls').hidden = true; $('tracking-tips').hidden = false;
     cameraButton.textContent = 'Stop camera';
-    worker = new Worker(new URL('./hand-tracker-worker.js', import.meta.url));
+    worker = new Worker(new URL('./hand-tracker-worker.js?v=20261013-camera', import.meta.url));
     const activeWorker = worker;
     initTimer = setTimeout(() => {
       if (session === generation) stopCamera('The tracker took too long to load. Check your connection and retry, or use manual controls.');
@@ -219,7 +250,7 @@ const resizeObserver = 'ResizeObserver' in window ? new ResizeObserver(resize) :
 resizeObserver?.observe(stage);
 window.addEventListener('resize', resize);
 document.addEventListener('visibilitychange', () => {
-  if (document.hidden) { if (state !== 'manual') stopCamera('Camera stopped while this tab was away. Enable it again when you’re ready.'); stopDemo(); cancelAnimationFrame(raf); }
+  if (document.hidden) { if (state !== 'manual' && state !== 'requesting') stopCamera('Camera stopped while this tab was away. Enable it again when you’re ready.'); stopDemo(); cancelAnimationFrame(raf); }
   else { previousTime = 0; dirty = true; cancelAnimationFrame(raf); raf = requestAnimationFrame(animate); }
 });
 window.addEventListener('pagehide', () => { stopCamera(); stopDemo(); cancelAnimationFrame(raf); });

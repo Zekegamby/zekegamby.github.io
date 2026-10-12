@@ -9,6 +9,7 @@ const math = await readFile(new URL('../assets/finger-kinematics.mjs', import.me
 class Element {
   constructor(id) { this.id = id; this.listeners = {}; this.dataset = {}; this.attributes = {}; this.children = []; this.value = '0'; this.textContent = ''; this.hidden = false; this.width = 310; this.height = 232; this.videoWidth = 640; this.videoHeight = 480; this.readyState = 2; this.currentTime = 0; }
   addEventListener(type, fn) { (this.listeners[type] ||= []).push(fn); }
+  removeEventListener(type, fn) { this.listeners[type] = (this.listeners[type] || []).filter(listener => listener !== fn); }
   fire(type, event = {}) { return Promise.all((this.listeners[type] || []).map(fn => fn(event))); }
   setAttribute(key, value) { this.attributes[key] = value; }
   getBoundingClientRect() { return { width: 310, height: 232 }; }
@@ -47,7 +48,7 @@ async function setup(getUserMedia) {
   return { get, document, window, workers, requested, bitmaps, timers, async tick(t) { now = t; const callbacks = [...frames.values()]; frames.clear(); callbacks.forEach(fn => fn(t)); await new Promise(setImmediate); }, views, presets };
 }
 function camera() {
-  const track = new Element('track'); track.stops = 0; track.stop = () => track.stops++;
+  const track = new Element('track'); track.enabled = true; track.stops = 0; track.stop = () => track.stops++;
   return { track, getTracks: () => [track], getVideoTracks: () => [track] };
 }
 test('The page never requests a camera on load; manual fallback works without WebGL', async () => {
@@ -73,6 +74,54 @@ test('Denied permission keeps the camera off and offers a useful retry', async (
   assert.match(app.get('tracking-status').textContent, /permission is blocked/);
   assert.equal(app.get('camera-button').textContent, 'Enable camera');
   assert.equal(app.get('manual-controls').hidden, false);
+});
+test('A permission prompt briefly hiding the page does not cancel the camera request', async () => {
+  let resolve; const cam = camera();
+  const app = await setup(() => new Promise(r => { resolve = r; }));
+  const start = app.get('camera-button').fire('click');
+  app.document.hidden = true; await app.document.fire('visibilitychange');
+  app.document.hidden = false; await app.document.fire('visibilitychange');
+  resolve(cam); await start;
+  assert.equal(cam.track.stops, 0);
+  assert.equal(app.workers.length, 1);
+  assert.equal(app.get('camera-button').textContent, 'Stop camera');
+  assert.equal(app.requested.length, 1);
+});
+test('Permission can resolve before the phone restores page visibility', async () => {
+  let resolve; const cam = camera();
+  const app = await setup(() => new Promise(r => { resolve = r; }));
+  const start = app.get('camera-button').fire('click');
+  app.document.hidden = true; await app.document.fire('visibilitychange');
+  resolve(cam); await new Promise(setImmediate);
+  assert.equal(cam.track.stops, 0); assert.equal(cam.track.enabled, false);
+  assert.equal(app.workers.length, 0);
+  app.document.hidden = false; await app.document.fire('visibilitychange'); await start;
+  assert.equal(cam.track.enabled, true); assert.equal(app.workers.length, 1);
+});
+test('A camera granted in the background is released if the page stays hidden', async () => {
+  let resolve; const cam = camera();
+  const app = await setup(() => new Promise(r => { resolve = r; }));
+  const start = app.get('camera-button').fire('click');
+  app.document.hidden = true; await app.document.fire('visibilitychange');
+  resolve(cam); await new Promise(setImmediate);
+  const timer = [...app.timers.values()].find(t => t.delay === 5000);
+  assert.ok(timer, 'bounded wait for the permission sheet to close'); timer.fn(); await start;
+  assert.equal(cam.track.stops, 1); assert.equal(app.workers.length, 0);
+  assert.equal(app.get('camera-button').textContent, 'Enable camera');
+});
+test('Cancel and navigation still release a granted stream while visibility is pending', async () => {
+  for (const action of ['cancel', 'navigate']) {
+    let resolve; const cam = camera();
+    const app = await setup(() => new Promise(r => { resolve = r; }));
+    const start = app.get('camera-button').fire('click');
+    app.document.hidden = true; await app.document.fire('visibilitychange');
+    resolve(cam); await new Promise(setImmediate);
+    await (action === 'cancel' ? app.get('camera-button').fire('click') : app.window.fire('pagehide'));
+    await start;
+    app.document.hidden = false; await app.document.fire('visibilitychange');
+    assert.equal(cam.track.stops, 1); assert.equal(app.workers.length, 0);
+    assert.equal(app.get('hand-video').srcObject, null); assert.equal(app.timers.size, 0);
+  }
 });
 test('Camera uses no audio; tracking sends only one frame while inference is busy', async () => {
   const cam = camera(), app = await setup(() => cam);
