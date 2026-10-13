@@ -1,0 +1,21 @@
+.ai-status { display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:0 0 1.15rem; margin-bottom:1.5rem; border-bottom:1px solid var(--line,#d9dbd4); font-size:.8rem; color:#62665e; }
+.ai-status p { margin:0; max-width:26rem; }
+.ai-status button { flex-shrink:0; }
+.ai-prompt { margin:1.5rem 0; }
+.ai-prompt > label { display:block; font-size:.85rem; margin-bottom:.65rem; }
+.ai-prompt textarea { width:100%; box-sizing:border-box; resize:vertical; min-height:125px; padding:1rem; border:1px solid #b8beb2; border-radius:4px; background:#fffefa; color:#222421; font:inherit; line-height:1.5; }
+.ai-prompt textarea:focus-visible { outline:2px solid #344d86; outline-offset:3px; }
+.ai-prompt .ai-revise { display:flex; align-items:center; gap:.6rem; margin:1rem 0; font-size:.83rem; }
+.ai-revise input { width:17px; height:17px; accent-color:#344d86; }
+.ai-actions { display:flex; align-items:center; gap:1rem; }
+.ai-actions .lab-primary { flex:1; }
+.ai-description { padding:1.25rem 0; border-top:1px solid #d9dbd4; margin-top:1.5rem; }
+.ai-description p { margin:0; line-height:1.6; color:#62665e; font-size:.86rem; }
+.ai-import { display:block; margin-top:1rem; }
+.ai-import input { display:block; max-width:100%; margin-top:.65rem; font:inherit; font-size:.8rem; }
+#finger-fallback.ai-placeholder { display:grid; place-items:center; height:100%; padding:5rem 2rem; color:#62665e; text-align:center; }
+.ai-placeholder p { max-width:20rem; line-height:1.6; }
+.ai-notice { color:#62665e; font-size:.78rem; line-height:1.6; margin-top:1rem; }
+button:disabled { cursor:default; opacity:.5; }
+[hidden] { display:none !important; }
+@media (max-width:600px) { .ai-status { align-items:flex-start; } .ai-actions { gap:.75rem; } }

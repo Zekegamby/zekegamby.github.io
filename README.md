@@ -43,3 +43,11 @@ Share links contain validated design settings in the URL fragment. They include 
 Weekly print entries use a `mailto:zekegamby@gmail.com` draft containing the exact interactive design link, optional credit name and note. The visitor must send the email in their email app. The UI never claims to have received a submission. A backend would be needed for an on-site submissions inbox. The weekly section currently invites the first selection; no community winners, print photos or tests are fabricated. Add real featured projects with creator approval as they are made. Printed designs are developed and adapted by Zeke, not produced directly from the visual preview.
 
 The tests cover design-link validation/roundtrips, geometry, prompt vocabulary, controller integration, history, email/clipboard behaviour and the existing mobile-camera lifecycle. They use Node and mocked browser APIs, not rendered or physical-device QA.
+
+## Unpublished local AI pilot
+
+`ai-studio.html` adds open-ended prompt interpretation through a local Ollama model. `assets/ai-design.mjs` validates generated primitives, variable-radius tubes and triangle meshes on a three-joint rig. `assets/ai-renderer.mjs` draws them; the existing camera and manual motion lifecycle is shared through `assets/motion-runtime.mjs`. Model output is data and is never evaluated as code. The original studio still uses its version-1 schema and renderer.
+
+`local-ai/server.mjs` is a loopback-only Node service with an asset allowlist, asynchronous bounded jobs, cancellation, timeouts and one GPU request at a time. `Start-Finger-Studio.cmd` installs missing prerequisites through Windows Package Manager where available and runs the local pilot. See [setup and public connection notes](local-ai/README.md). `node local-ai/package.mjs` builds a small zip without the portfolio's media or Git history.
+
+This branch is preparation for a real test on the host PC. It has not activated AI on the public site. Node tests cover request/revision flow, data validation, cancellation, import/export, HTTP boundaries and the existing mobile camera lifecycle. Neither Windows setup nor real model output nor rendered browser/phone behavior has been tested in this workspace.

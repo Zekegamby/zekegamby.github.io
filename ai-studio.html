@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Finger Studio — Local test — Zeke Gamby</title>
+  <meta name="description" content="Make your own digital finger. Shape it in 3D, move it with your hand, and send your concept to Zeke Gamby's weekly print showcase.">
+  <meta name="theme-color" content="#f5f4f0"><link rel="canonical" href="https://zekegamby.com/ai-studio.html">
+  <meta property="og:type" content="website"><meta property="og:title" content="Design a finger. Give it a life. — Zeke Gamby"><meta property="og:description" content="A live 3D playground. Your design could become the next weekly print."><meta property="og:url" content="https://zekegamby.com/ai-studio.html"><meta property="og:image" content="https://zekegamby.com/assets/robotics-bench.webp">
+  <link rel="icon" href="https://zekegamby.com/assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><link rel="stylesheet" href="assets/motion-lab.css?v=20261013-studio">
+  <script src="assets/ai-studio.js?v=20261013-ai-pilot" type="module"></script>
+<meta name="robots" content="noindex"><link rel="stylesheet" href="assets/ai-studio.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header"><div class="wrap header-inner"><a class="wordmark" href="https://zekegamby.com/index.html" aria-label="Zeke Gamby, home">Zeke Gamby</a><nav class="site-nav" aria-label="Main navigation"><a href="https://zekegamby.com/index.html#projects">Work</a><a href="ai-studio.html" aria-current="page">Finger studio</a><a href="#weekly-print">Weekly print</a></nav></div></header>
+<main id="main" class="wrap lab-page">
+  <header class="lab-intro"><div><p class="eyebrow">AI finger studio / Local test</p><h1>Imagine a finger.<br><span>Give it a life.</span></h1></div><div class="lab-intro-copy"><p>Make something a little strange.<br>Then see how it moves.</p><p class="lab-small">Describe a shape. Ask for a change. Explore what the AI makes with your own hand. This early version runs on the host PC.</p><a class="studio-intro-link" href="#weekly-print">From your screen to my workbench ↗</a></div></header>
+  <section class="lab-workspace" aria-label="Interactive finger motion lab">
+    <div class="lab-display">
+      <div class="lab-stage" id="lab-stage">
+        <div class="lab-stage-top"><div class="stage-identity"><span id="stage-design-name">Blank canvas</span><span id="stage-design-spec">Authored starting model</span></div><span class="lab-mode" id="lab-mode">Manual control</span></div>
+        <canvas id="finger-canvas" aria-label="Three-dimensional finger responding to the camera or the joint controls" role="img" hidden></canvas>
+        <div id="finger-fallback" class="ai-placeholder"><p>Your 3D concept will appear here when the renderer is ready.</p></div>
+        <p class="lab-render-note" id="render-note" role="status">Loading the 3D study…</p>
+        <div class="lab-stage-bottom"><span id="view-hint">An articulated motion study</span><div class="lab-views" role="group" aria-label="View angle"><button type="button" data-view="perspective" aria-pressed="true">3D</button><button type="button" data-view="side" aria-pressed="false">Side</button><button type="button" data-view="front" aria-pressed="false">Front</button></div></div>
+      </div>
+      <div class="lab-readouts" aria-label="Estimated joint bend angles"><div><span>01 / Base</span><p><output id="angle-0">14</output><span>°</span></p></div><div><span>02 / Middle</span><p><output id="angle-1">24</output><span>°</span></p></div><div><span>03 / Tip</span><p><output id="angle-2">16</output><span>°</span></p></div></div>
+      <div class="studio-flex"><label for="quick-flex">Give it a bend <span aria-hidden="true">↔</span></label><input id="quick-flex" type="range" min="0" max="100" value="24" aria-label="Bend all three finger joints together"><span aria-hidden="true">Curl</span></div>
+    </div>
+    <aside class="lab-control-panel" id="studio-controls" aria-label="Finger studio controls">
+      <div class="studio-tabs" role="tablist" aria-label="Design workflow"><button id="tab-shape" type="button" role="tab" data-studio-tab="shape" aria-controls="panel-shape" aria-selected="true">01 Shape</button><button id="tab-move" type="button" role="tab" data-studio-tab="move" aria-controls="panel-move" aria-selected="false" tabindex="-1">02 Move</button><button id="tab-share" type="button" role="tab" data-studio-tab="share" aria-controls="panel-share" aria-selected="false" tabindex="-1">03 Share</button></div>
+      <section class="studio-panel" id="panel-shape" role="tabpanel" aria-labelledby="tab-shape">
+        <div class="ai-status"><p id="service-status" role="status">Checking the studio…</p><button type="button" id="check-service" class="lab-text-button">Check again</button></div>
+        <h2>What can you imagine?</h2>
+        <p class="studio-subtitle">An unexpected silhouette. A shape from nature. Something that doesn't exist yet.</p>
+        <form id="prompt-form" class="ai-prompt">
+          <label for="design-prompt">Describe your finger, or the next change</label>
+          <textarea id="design-prompt" rows="4" maxlength="2000" required minlength="3" placeholder="A finger grown from twisting coral, with a translucent-looking pale blue shell and a spiral tip…" aria-describedby="prompt-help"></textarea>
+          <label class="ai-revise"><input type="checkbox" id="revise-design">Build on the design I'm looking at</label>
+          <div class="ai-actions"><button id="generate-design" class="lab-button lab-primary" type="submit">Create this idea ↗</button><button id="cancel-generation" class="lab-text-button" type="button" hidden>Cancel</button></div>
+          <p class="ai-notice" id="prompt-help">The AI creates new geometry from your words. Complex ideas may need a few revisions. First generation can take longer while the model loads.</p>
+        </form>
+        <p id="design-status" class="studio-feedback" role="status" aria-live="polite">Describe anything you can imagine. The model will attempt a visual interpretation.</p>
+        <div class="studio-history"><button id="undo-design" class="lab-text-button" type="button" disabled>↶ Undo</button><button id="redo-design" class="lab-text-button" type="button" disabled>↷ Redo</button><button id="reset-design" class="lab-text-button" type="button">Start fresh</button></div>
+        <div class="ai-description"><p id="design-description">A simple starting model, ready for your idea.</p></div>
+        <button class="lab-button studio-secondary" type="button" data-open-panel="move">Make it move →</button>
+        <p class="ai-notice">Descriptions and the current concept go to the host PC. Camera video stays in your browser. Save a concept file to keep it after you leave.</p>
+      </section>
+      <section class="studio-panel" id="panel-move" role="tabpanel" aria-labelledby="tab-move" hidden>
+      <div class="lab-camera-section">
+        <div class="lab-panel-heading"><h2>You are the input.</h2><span class="lab-camera-label" id="camera-label">Camera off</span></div>
+        <div class="lab-camera-preview" id="camera-preview">
+          <video id="hand-video" playsinline muted autoplay aria-label="Mirrored live camera preview" hidden></video><canvas id="hand-overlay" aria-hidden="true" hidden></canvas>
+          <div class="lab-camera-placeholder" id="camera-placeholder"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M34 77V36c0-8 10-8 10 0v20-36c0-8 10-8 10 0v36-27c0-8 10-8 10 0v29-18c0-8 10-8 10 0v27c0 19-12 27-26 27-9 0-16-5-21-13L15 62c-4-8 5-13 10-7l9 11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg><p>Your hand goes here.</p><span>Keep your whole hand in view.</span></div>
+        </div>
+        <button class="lab-button lab-primary" id="camera-button" type="button" disabled>Enable camera</button>
+        <p class="lab-status" id="tracking-status" role="status" aria-live="polite">Use the controls below, or enable your camera.</p>
+        <p class="lab-privacy">Video stays on your device. Nothing is recorded or uploaded. No microphone access.</p>
+        <div class="lab-tracking-tips" id="tracking-tips" hidden><p>Show one hand, palm facing the camera. Slowly curl your index finger, then try a slight side angle.</p><button class="lab-text-button" id="manual-button" type="button">Switch to manual controls</button></div>
+      </div>
+      <fieldset class="lab-manual" id="manual-controls"><legend>Try it without a camera</legend><div class="lab-presets" role="group" aria-label="Finger poses"><button type="button" data-preset="open">Open</button><button type="button" data-preset="relaxed">Relaxed</button><button type="button" data-preset="curl">Curl</button></div>
+        <label for="joint-0">Base joint <span>01</span></label><input id="joint-0" type="range" min="0" max="100" value="14" step="1" aria-valuetext="14 degrees">
+        <label for="joint-1">Middle joint <span>02</span></label><input id="joint-1" type="range" min="0" max="115" value="24" step="1" aria-valuetext="24 degrees">
+        <label for="joint-2">Tip joint <span>03</span></label><input id="joint-2" type="range" min="0" max="85" value="16" step="1" aria-valuetext="16 degrees">
+        <button class="lab-text-button" id="demo-button" type="button" aria-pressed="false">Play a movement</button>
+      </fieldset>
+      <button class="lab-button studio-secondary" type="button" data-open-panel="share">Keep this design →</button>
+      </section>
+      <section class="studio-panel studio-share" id="panel-share" role="tabpanel" aria-labelledby="tab-share" hidden>
+        <h2>Keep the idea.</h2><p class="studio-subtitle" id="share-design-name">Your concept</p>
+        <button class="lab-button lab-primary" id="download-design" type="button">Download your concept ↓</button>
+        <p class="studio-fine">A file you can reopen and keep editing. Visual geometry, not a printer-ready model.</p>
+        <label class="ai-import" for="import-design">Reopen a saved concept<input id="import-design" type="file" accept="application/json,.json"></label>
+        <div class="ai-description"><h3>Could this be the weekly print?</h3><p>Send me the concept and what makes it interesting. I'll pick one community idea each week to develop, print and test.</p></div>
+        <a class="lab-button studio-secondary" id="submission-email" href="mailto:zekegamby@gmail.com">Email Zeke ↗</a>
+        <p class="studio-fine">Download your concept first, attach it to the email draft, then send. I'll contact you before featuring your work.</p>
+        <p id="share-status" class="studio-feedback" role="status" aria-live="polite"></p>
+      </section>
+    </aside>
+  </section>
+  <noscript><p class="lab-noscript">This experiment needs JavaScript. You can still <a href="https://zekegamby.com/printed-robotics.html">explore the physical prototypes</a>.</p></noscript>
+  <div class="lab-context"><p>A live visual concept, inspired by my printed robotics research. AI-created shapes are exploratory and can intersect when bent. The three joints move as a visual rig. This is not a printer-ready model or a simulation of strength, material behaviour or collisions.</p><a class="text-link" href="https://zekegamby.com/printed-robotics.html">Meet the physical prototypes <span aria-hidden="true">↗</span></a></div>
+  <section class="weekly-print" id="weekly-print" aria-labelledby="weekly-heading"><div class="weekly-heading"><p class="eyebrow">The weekly print / First selection open</p><h2 id="weekly-heading">Your idea.<br>My next print.</h2><p>I’m opening up the workbench. Each week, I’ll pick a visitor’s finger concept that makes me curious, develop it into a physical prototype, and share what happens.</p><button class="weekly-cta" type="button" data-open-panel="share" data-scroll="true">Put your design forward <span aria-hidden="true">↗</span></button></div><div class="weekly-process"><div><span>01</span><h3>You imagine it.</h3><p>Make a finger, play with it, and tell me what I should explore. A good question is as welcome as a beautiful form.</p></div><div><span>02</span><h3>I print and test it.</h3><p>I’ll adapt the selected concept for my multi-material printing process, then find out how it behaves in the real world.</p></div><div><span>03</span><h3>We show what happened.</h3><p>The featured showcase will pair your concept and credit with the finished print, movement footage and what the test taught us.</p></div><p class="weekly-note">The first community feature is still to come. Until then, <a href="https://zekegamby.com/printed-robotics.html">see what’s already on my workbench ↗</a></p></div></section>
+  <details class="lab-details"><summary>How it works &amp; camera help</summary><div><p>A hand tracker estimates landmarks from your camera. The finger’s three bend angles are measured relative to your palm, smoothed, and applied to the digital model. The model stays anchored so you can concentrate on the joints.</p><p>Use even lighting, show your entire hand, and avoid overlapping fingers. Fast motion and hidden joints can make the estimate jump. Try a slight side angle if a bend is hard to read.</p><p>If the camera is blocked, allow it in your browser’s site settings and retry. In an embedded browser, open this page in Safari, Chrome, Edge or Firefox. You can use the manual controls at any time.</p><p>The tracker and 3D libraries download when needed from jsDelivr and Google’s model hosting. Camera frames are processed locally and are neither stored nor sent to a server. Leaving the page or switching tabs turns the camera off.</p><p>Built with <a href="https://ai.google.dev/edge/mediapipe/solutions/vision/hand_landmarker" target="_blank" rel="noopener noreferrer">MediaPipe Hand Landmarker</a> and <a href="https://threejs.org/" target="_blank" rel="noopener noreferrer">Three.js</a>.</p></div></details>
+  <footer class="lab-footer"><a href="https://zekegamby.com/index.html">← Back to the portfolio</a><span>Zeke Gamby / Finger studio</span></footer>
+</main>
+</body></html>

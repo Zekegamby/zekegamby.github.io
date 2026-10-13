@@ -3,7 +3,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import vm from 'node:vm';
 import { readFile } from 'node:fs/promises';
-const code = await readFile(new URL('../assets/motion-lab.js', import.meta.url), 'utf8');
+const runtime = await readFile(new URL('../assets/motion-runtime.mjs', import.meta.url), 'utf8');
+const code = runtime + `\nimport { DEFAULT_DESIGN, PALETTES, designGeometry } from './finger-design.mjs';\nawait startMotionLab({ DEFAULT_DESIGN, PALETTES, designGeometry, initFingerStudio() {}, async createFingerRenderer() { throw new Error('No WebGL in logic tests'); } });`;
 const math = await readFile(new URL('../assets/finger-kinematics.mjs', import.meta.url), 'utf8');
 const designs = await readFile(new URL('../assets/finger-design.mjs', import.meta.url), 'utf8');
 
