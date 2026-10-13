@@ -1,5 +1,7 @@
-import { landmarksToPose, fingerPoints, smoothPose } from './finger-kinematics.mjs';
-import { createFingerRenderer } from './finger-renderer.mjs';
+import { landmarksToPose, fingerPoints, smoothPose } from './finger-kinematics.mjs?v=20261013-studio';
+import { createFingerRenderer } from './finger-renderer.mjs?v=20261013-studio';
+import { DEFAULT_DESIGN, PALETTES, designGeometry } from './finger-design.mjs?v=20261013-studio';
+import { initFingerStudio } from './finger-studio.mjs?v=20261013-studio';
 
 const $ = id => document.getElementById(id);
 const stage = $('lab-stage'), canvas = $('finger-canvas'), video = $('hand-video');
@@ -14,6 +16,7 @@ let renderer, stream, worker, initTimer, frameTimer, raf, cancelVisibilityWait;
 let state = 'manual', generation = 0, busy = false, demo = false;
 let lastFrameTime = -1, lastSent = 0, lastSeen = 0, previousTime = 0, lastReadout = 0;
 let pointer = null, dirty = true, demoStart = 0, trackingLabel = '';
+let design = DEFAULT_DESIGN, geometry = designGeometry(design), modelDirty = true;
 const setStatus = message => { if (status.textContent !== message) status.textContent = message; };
 
 function setMode(label, live = false) {
@@ -28,6 +31,7 @@ function stopDemo() {
   $('demo-button').setAttribute('aria-pressed', 'false');
 }
 function updateSliders() {
+  $('quick-flex').value = Math.min(100, Math.round(target.angles[1]));
   sliders.forEach((slider, i) => {
     slider.value = Math.round(target.angles[i]);
     slider.setAttribute('aria-valuetext', `${Math.round(target.angles[i])} degrees`);
@@ -188,10 +192,20 @@ async function capture(time) {
 }
 
 function drawFallback() {
-  const points = fingerPoints(pose.angles, pose.sway).map(([x, y, z]) => [310 + z * 69 + x * 25, 465 - y * 57]);
+  const points = fingerPoints(pose.angles, pose.sway, geometry.lengths).map(([x, y, z]) => [290 + z * 57 + x * 25, 465 - y * 54]);
   const path = points.map((p, i) => `${i ? 'L' : 'M'}${p[0].toFixed(2)} ${p[1].toFixed(2)}`).join('');
   $('fallback-bones').setAttribute('d', path); $('fallback-tendon').setAttribute('d', path);
-  [...$('fallback-joints').children].forEach((circle, i) => { circle.setAttribute('cx', points[i][0]); circle.setAttribute('cy', points[i][1]); });
+  $('fallback-bones').setAttribute('stroke', PALETTES[design.palette].accent);
+  $('fallback-joints').setAttribute('fill', PALETTES[design.palette].joint);
+  document.querySelectorAll('[data-fallback-segment]').forEach((segment, i) => {
+    const a = points[i], b = points[i + 1];
+    const start = a.map((v, axis) => v + (b[axis] - v) * .13), end = a.map((v, axis) => v + (b[axis] - v) * .86);
+    segment.setAttribute('d', `M${start.join(' ')}L${end.join(' ')}`);
+    segment.setAttribute('stroke', PALETTES[design.palette].shell);
+    segment.setAttribute('stroke-width', geometry.radii[i] * (design.style === 'exposed' ? 55 : 100));
+    segment.setAttribute('stroke-dasharray', design.style === 'ribbed' ? '8 6' : 'none');
+  });
+  [...$('fallback-joints').children].forEach((circle, i) => { circle.setAttribute('cx', points[i][0]); circle.setAttribute('cy', points[i][1]); circle.setAttribute('r', geometry.radii[i] * 42); });
 }
 function animate(time) {
   if (document.hidden) return;
@@ -203,6 +217,7 @@ function animate(time) {
   }
   const moving = pose.angles.some((v, i) => Math.abs(v - target.angles[i]) > .015) || Math.abs(pose.sway - target.sway) > .015;
   if (moving || dirty) {
+    if (modelDirty && renderer) { renderer.design(design); modelDirty = false; }
     pose = reducedMotion.matches && state === 'manual' ? { angles: [...target.angles], sway: target.sway } : smoothPose(pose, target, dt);
     if (renderer) renderer.draw(pose); else drawFallback();
     if (time - lastReadout > 100 || dirty) { readouts.forEach((output, i) => { output.value = String(Math.round(pose.angles[i])); }); lastReadout = time; }
@@ -219,6 +234,9 @@ sliders.forEach((slider, i) => slider.addEventListener('input', () => {
   const value = Number(slider.value);
   const angles = [...target.angles]; angles[i] = value; setManualPose(angles);
 }));
+$('quick-flex').addEventListener('input', event => {
+  const flex = Number(event.target.value); setManualPose([flex * .75, flex, flex * .65]);
+});
 document.querySelectorAll('[data-preset]').forEach(button => button.addEventListener('click', () => {
   setManualPose({ open: [0, 0, 0], relaxed: [14, 24, 16], curl: [75, 100, 65] }[button.dataset.preset]);
 }));
@@ -263,6 +281,9 @@ canvas.addEventListener('webglcontextlost', event => {
 });
 
 cameraButton.disabled = false;
+initFingerStudio(next => { design = next; geometry = designGeometry(next); modelDirty = dirty = true; }, panel => {
+  if (panel !== 'move') { if (state !== 'manual') stopCamera(); stopDemo(); }
+});
 raf = requestAnimationFrame(animate);
 try {
   renderer = await createFingerRenderer(canvas);

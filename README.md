@@ -31,3 +31,15 @@ Mobile startup keeps the permission request separate from active tracking. A tem
 `assets/finger-kinematics.mjs` estimates index-finger bend angles from world landmarks in a palm-relative coordinate frame. Translation, scale and wrist rotation do not drive the rig. It clamps angles and smooths movement; occluded joints remain estimates. No force, collision or material simulation is performed. `assets/finger-renderer.mjs` draws an original articulated visual model with Three.js **0.180.0**, loaded only on this page. A locally rendered SVG side view remains interactive if the 3D library or WebGL cannot load. There is no automatic animation or camera start.
 
 Run `node --experimental-vm-modules --test tests/*.test.mjs` for pose geometry and camera lifecycle tests. Lifecycle tests use a mocked DOM, worker and camera; they do not replace browser and real-camera checks.
+
+## Visitor finger studio and weekly print
+
+The existing `motion-lab.html` URL now hosts the Finger Studio. Visitors can edit reach, width, taper, one of three shell styles and five palettes. Changes rebuild the articulated Three.js model; the SVG fallback also reflects proportions, shell style and colours. The preview's bend slider, individual joints, movement playback and opt-in hand tracking all control the current design. Leaving the Move panel stops camera capture.
+
+`assets/finger-design.mjs` defines the version-1 concept schema, bounds, starting points, keyword-based generator, share-link encoding and email draft. The generator uses a documented shape/colour vocabulary locally; it does not call an AI service. `assets/finger-studio.mjs` handles the design controls, accessible tabs, undo/redo, sharing and submissions. Motion-lab module URLs are versioned together to prevent incompatible cached modules.
+
+Share links contain validated design settings in the URL fragment. They include the design title but never the creator name or idea note. Concept downloads are JSON settings with a reopenable link, not STL/voxel/printer-ready files. No design or camera data is posted to a server. There is no automatic save: visitors should copy their link or download the settings to keep a design.
+
+Weekly print entries use a `mailto:zekegamby@gmail.com` draft containing the exact interactive design link, optional credit name and note. The visitor must send the email in their email app. The UI never claims to have received a submission. A backend would be needed for an on-site submissions inbox. The weekly section currently invites the first selection; no community winners, print photos or tests are fabricated. Add real featured projects with creator approval as they are made. Printed designs are developed and adapted by Zeke, not produced directly from the visual preview.
+
+The tests cover design-link validation/roundtrips, geometry, prompt vocabulary, controller integration, history, email/clipboard behaviour and the existing mobile-camera lifecycle. They use Node and mocked browser APIs, not rendered or physical-device QA.
