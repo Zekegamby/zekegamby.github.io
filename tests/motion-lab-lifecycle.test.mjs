@@ -5,7 +5,6 @@ import vm from 'node:vm';
 import { readFile } from 'node:fs/promises';
 const code = await readFile(new URL('../assets/motion-lab.js', import.meta.url), 'utf8');
 const math = await readFile(new URL('../assets/finger-kinematics.mjs', import.meta.url), 'utf8');
-const designs = await readFile(new URL('../assets/finger-design.mjs', import.meta.url), 'utf8');
 
 class Element {
   constructor(id) { this.id = id; this.listeners = {}; this.dataset = {}; this.attributes = {}; this.children = []; this.value = '0'; this.textContent = ''; this.hidden = false; this.width = 310; this.height = 232; this.videoWidth = 640; this.videoHeight = 480; this.readyState = 2; this.currentTime = 0; }
@@ -44,7 +43,7 @@ async function setup(getUserMedia) {
   };
   const context = vm.createContext(globals);
   const main = new vm.SourceTextModule(code, { context, initializeImportMeta(meta) { meta.url = 'https://zekegamby.com/assets/motion-lab.js'; } });
-  await main.link(specifier => new vm.SourceTextModule(specifier.includes('kinematics') ? math : specifier.includes('finger-design') ? designs : specifier.includes('finger-studio') ? 'export function initFingerStudio() {}' : 'export async function createFingerRenderer() { throw new Error("No WebGL in logic tests"); }', { context }));
+  await main.link(specifier => new vm.SourceTextModule(specifier.includes('kinematics') ? math : 'export async function createFingerRenderer() { throw new Error("No WebGL in logic tests"); }', { context }));
   await main.evaluate();
   return { get, document, window, workers, requested, bitmaps, timers, async tick(t) { now = t; const callbacks = [...frames.values()]; frames.clear(); callbacks.forEach(fn => fn(t)); await new Promise(setImmediate); }, views, presets };
 }
@@ -60,13 +59,6 @@ test('The page never requests a camera on load; manual fallback works without We
   await app.tick(1000);
   assert.match(app.get('fallback-bones').attributes.d, /^M/);
   assert.equal(app.get('joint-1').value, 100);
-});
-test('The preview bend slider moves the entire finger and stops camera capture', async () => {
-  const cam = camera(), app = await setup(() => cam);
-  await app.get('camera-button').fire('click');
-  await app.get('quick-flex').fire('input', { target: { value: '80' } });
-  assert.equal(cam.track.stops, 1); assert.equal(app.workers[0].terminated, true);
-  assert.equal(app.get('joint-0').value, 60); assert.equal(app.get('joint-1').value, 80); assert.equal(app.get('joint-2').value, 52);
 });
 test('Stopping before permission resolves closes a late camera stream', async () => {
   let resolve; const cam = camera();

@@ -28,11 +28,11 @@ export function landmarksToPose(points) {
   return { angles: [bend, middle, tip].map((n, i) => clamp(n, 0, LIMITS[i])), sway: clamp(sway, -30, 30) };
 }
 
-export function fingerPoints(angles, sway = 0, lengths = LENGTHS) {
+export function fingerPoints(angles, sway = 0) {
   let curl = 0;
   const side = sway * Math.PI / 180;
   const points = [[0, 0, 0]];
-  lengths.forEach((length, i) => {
+  LENGTHS.forEach((length, i) => {
     curl += clamp(angles[i], 0, LIMITS[i]) * Math.PI / 180;
     const previous = points[i];
     points.push([
