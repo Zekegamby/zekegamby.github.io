@@ -9,6 +9,20 @@ An unpublished pilot for Zeke's website. The AI authors a new geometry descripti
 3. First setup downloads `qwen2.5-coder:7b` (about 4.7 GB). Keep the window open; it opens `http://127.0.0.1:8787` when ready.
 4. Describe an idea. After generation, ask for a change with **Build on the design I'm looking at** checked. Use the bend slider or Move tab. Save a concept before leaving.
 
+### If Windows blocks `Start-Finger-Studio.cmd`
+
+Leave Smart App Control enabled. The batch file is only a convenience wrapper; the project also has a Node.js entry point. You can use the files already extracted:
+
+1. Install **Node.js LTS** using the official [Windows installer](https://nodejs.org/en/download), if it is not already installed. Node 22+ is required.
+2. Open the extracted `Finger-Studio` folder containing `ai-studio.html`, `assets` and `local-ai`. Right-click an empty area and choose **Open in Terminal**. Open a new terminal after installing Node so it sees the updated PATH.
+3. Run:
+
+   ```powershell
+   node .\local-ai\start.mjs
+   ```
+
+This invokes the project's Node entry point directly. It checks Ollama, offers installation through Windows Package Manager if missing, downloads the local model if needed, and starts the studio. It does not execute the blocked `.cmd` file or change Windows security settings. If a separate warning names Node.js, Ollama or another file, stop and identify that file before continuing. No administrator terminal, execution-policy change or file-unblocking command is needed.
+
 No API key or paid inference service. Your PC supplies the compute and must stay awake for generation. Internet is needed for setup, the 3D library and camera model. Camera video stays in the visitor's browser. Prompts and current geometry go to the host PC; jobs and results expire from memory after about 15 minutes, or at shutdown, and are not written to a database. Job history is also capped at 20 records.
 
 If setup fails, install [Node.js LTS](https://nodejs.org/en/download) and [Ollama for Windows](https://ollama.com/download/windows), then rerun the launcher. Node 22+ is required. Updated NVIDIA drivers may be needed for GPU inference. With generation running, `ollama ps` in a terminal shows whether the model is using the GPU. There is no need to change firewall rules or expose port 11434.
