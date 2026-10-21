@@ -1,0 +1,351 @@
+{
+  "revision": "V14R3 + wrist motion study",
+  "presets": [
+    {
+      "name": "centre",
+      "box_path_samples": 81,
+      "self_samples": 17,
+      "rigid_box_intersections": [],
+      "body_intersections": [],
+      "max_soft_box_overlap_mm": 0.24253855005830083,
+      "passed": true
+    },
+    {
+      "name": "right",
+      "box_path_samples": 81,
+      "self_samples": 17,
+      "rigid_box_intersections": [],
+      "body_intersections": [],
+      "max_soft_box_overlap_mm": 0.26009200790922105,
+      "passed": true
+    },
+    {
+      "name": "left",
+      "box_path_samples": 81,
+      "self_samples": 17,
+      "rigid_box_intersections": [],
+      "body_intersections": [],
+      "max_soft_box_overlap_mm": 0.9724943885852904,
+      "passed": true
+    },
+    {
+      "name": "higher",
+      "box_path_samples": 81,
+      "self_samples": 17,
+      "rigid_box_intersections": [],
+      "body_intersections": [],
+      "max_soft_box_overlap_mm": 0.37896488915709003,
+      "passed": true
+    },
+    {
+      "name": "lower",
+      "box_path_samples": 81,
+      "self_samples": 17,
+      "rigid_box_intersections": [],
+      "body_intersections": [],
+      "max_soft_box_overlap_mm": 0.45284778046762764,
+      "passed": true
+    },
+    {
+      "name": "forward",
+      "box_path_samples": 81,
+      "self_samples": 17,
+      "rigid_box_intersections": [],
+      "body_intersections": [],
+      "max_soft_box_overlap_mm": 0.7120130623436118,
+      "passed": true
+    }
+  ],
+  "sweep": [
+    {
+      "sample": 0,
+      "rigid_box_intersections": [],
+      "body_intersections": [],
+      "soft_overlap_mm": 0.06024949429656701,
+      "passed": true
+    },
+    {
+      "sample": 3,
+      "rigid_box_intersections": [],
+      "body_intersections": [],
+      "soft_overlap_mm": 0.05973032952949886,
+      "passed": true
+    },
+    {
+      "sample": 6,
+      "rigid_box_intersections": [],
+      "body_intersections": [],
+      "soft_overlap_mm": 0.059513595203871006,
+      "passed": true
+    },
+    {
+      "sample": 9,
+      "rigid_box_intersections": [],
+      "body_intersections": [],
+      "soft_overlap_mm": 0.0594513396640739,
+      "passed": true
+    },
+    {
+      "sample": 12,
+      "rigid_box_intersections": [],
+      "body_intersections": [],
+      "soft_overlap_mm": 0.05938038708934279,
+      "passed": true
+    },
+    {
+      "sample": 15,
+      "rigid_box_intersections": [],
+      "body_intersections": [],
+      "soft_overlap_mm": 0.06449414590574865,
+      "passed": true
+    },
+    {
+      "sample": 18,
+      "rigid_box_intersections": [],
+      "body_intersections": [],
+      "soft_overlap_mm": 0.06773840693369237,
+      "passed": true
+    },
+    {
+      "sample": 21,
+      "rigid_box_intersections": [],
+      "body_intersections": [],
+      "soft_overlap_mm": 0.06552611322141022,
+      "passed": true
+    },
+    {
+      "sample": 24,
+      "rigid_box_intersections": [],
+      "body_intersections": [],
+      "soft_overlap_mm": 0.060242392880098805,
+      "passed": true
+    },
+    {
+      "sample": 27,
+      "rigid_box_intersections": [],
+      "body_intersections": [],
+      "soft_overlap_mm": 0.06456458490873551,
+      "passed": true
+    },
+    {
+      "sample": 30,
+      "rigid_box_intersections": [],
+      "body_intersections": [],
+      "soft_overlap_mm": 0.06925773742331387,
+      "passed": true
+    },
+    {
+      "sample": 33,
+      "rigid_box_intersections": [],
+      "body_intersections": [],
+      "soft_overlap_mm": 0.07388170737896615,
+      "passed": true
+    },
+    {
+      "sample": 36,
+      "rigid_box_intersections": [],
+      "body_intersections": [],
+      "soft_overlap_mm": 0.07803791091105694,
+      "passed": true
+    },
+    {
+      "sample": 39,
+      "rigid_box_intersections": [],
+      "body_intersections": [],
+      "soft_overlap_mm": 0.07932996108327028,
+      "passed": true
+    },
+    {
+      "sample": 42,
+      "rigid_box_intersections": [],
+      "body_intersections": [],
+      "soft_overlap_mm": 0.0798682126229524,
+      "passed": true
+    },
+    {
+      "sample": 45,
+      "rigid_box_intersections": [],
+      "body_intersections": [],
+      "soft_overlap_mm": 0.08002901048858213,
+      "passed": true
+    },
+    {
+      "sample": 48,
+      "rigid_box_intersections": [],
+      "body_intersections": [],
+      "soft_overlap_mm": 0.07967185626254114,
+      "passed": true
+    },
+    {
+      "sample": 51,
+      "rigid_box_intersections": [],
+      "body_intersections": [],
+      "soft_overlap_mm": 0.07854299348992111,
+      "passed": true
+    },
+    {
+      "sample": 54,
+      "rigid_box_intersections": [],
+      "body_intersections": [],
+      "soft_overlap_mm": 0.07565817424567722,
+      "passed": true
+    },
+    {
+      "sample": 57,
+      "rigid_box_intersections": [],
+      "body_intersections": [],
+      "soft_overlap_mm": 0.06890887155060366,
+      "passed": true
+    },
+    {
+      "sample": 60,
+      "rigid_box_intersections": [],
+      "body_intersections": [],
+      "soft_overlap_mm": 0.06024970611389602,
+      "passed": true
+    },
+    {
+      "sample": 63,
+      "rigid_box_intersections": [],
+      "body_intersections": [],
+      "soft_overlap_mm": 0.06466521446035145,
+      "passed": true
+    },
+    {
+      "sample": 66,
+      "rigid_box_intersections": [],
+      "body_intersections": [],
+      "soft_overlap_mm": 0.07327489451444258,
+      "passed": true
+    },
+    {
+      "sample": 69,
+      "rigid_box_intersections": [],
+      "body_intersections": [],
+      "soft_overlap_mm": 0.10532523678915773,
+      "passed": true
+    },
+    {
+      "sample": 72,
+      "rigid_box_intersections": [],
+      "body_intersections": [],
+      "soft_overlap_mm": 0.13674669584088317,
+      "passed": true
+    },
+    {
+      "sample": 75,
+      "rigid_box_intersections": [],
+      "body_intersections": [],
+      "soft_overlap_mm": 0.16394389756969652,
+      "passed": true
+    },
+    {
+      "sample": 78,
+      "rigid_box_intersections": [],
+      "body_intersections": [],
+      "soft_overlap_mm": 0.18353133055235915,
+      "passed": true
+    },
+    {
+      "sample": 81,
+      "rigid_box_intersections": [],
+      "body_intersections": [],
+      "soft_overlap_mm": 0.18947266447442512,
+      "passed": true
+    },
+    {
+      "sample": 84,
+      "rigid_box_intersections": [],
+      "body_intersections": [],
+      "soft_overlap_mm": 0.18879580092761827,
+      "passed": true
+    },
+    {
+      "sample": 87,
+      "rigid_box_intersections": [],
+      "body_intersections": [],
+      "soft_overlap_mm": 0.181881862309492,
+      "passed": true
+    },
+    {
+      "sample": 90,
+      "rigid_box_intersections": [],
+      "body_intersections": [],
+      "soft_overlap_mm": 0.16337715153795074,
+      "passed": true
+    },
+    {
+      "sample": 93,
+      "rigid_box_intersections": [],
+      "body_intersections": [],
+      "soft_overlap_mm": 0.1398217024216466,
+      "passed": true
+    },
+    {
+      "sample": 96,
+      "rigid_box_intersections": [],
+      "body_intersections": [],
+      "soft_overlap_mm": 0.11425333932267634,
+      "passed": true
+    },
+    {
+      "sample": 99,
+      "rigid_box_intersections": [],
+      "body_intersections": [],
+      "soft_overlap_mm": 0.08937605577830432,
+      "passed": true
+    },
+    {
+      "sample": 102,
+      "rigid_box_intersections": [],
+      "body_intersections": [],
+      "soft_overlap_mm": 0.07374106589043539,
+      "passed": true
+    },
+    {
+      "sample": 105,
+      "rigid_box_intersections": [],
+      "body_intersections": [],
+      "soft_overlap_mm": 0.07017872470708397,
+      "passed": true
+    },
+    {
+      "sample": 108,
+      "rigid_box_intersections": [],
+      "body_intersections": [],
+      "soft_overlap_mm": 0.06710646645056428,
+      "passed": true
+    },
+    {
+      "sample": 111,
+      "rigid_box_intersections": [],
+      "body_intersections": [],
+      "soft_overlap_mm": 0.06458278343960266,
+      "passed": true
+    },
+    {
+      "sample": 114,
+      "rigid_box_intersections": [],
+      "body_intersections": [],
+      "soft_overlap_mm": 0.06261712862608526,
+      "passed": true
+    },
+    {
+      "sample": 117,
+      "rigid_box_intersections": [],
+      "body_intersections": [],
+      "soft_overlap_mm": 0.06118759185497602,
+      "passed": true
+    },
+    {
+      "sample": 120,
+      "rigid_box_intersections": [],
+      "body_intersections": [],
+      "soft_overlap_mm": 0.06024977641693674,
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "scope": "Actual R3 printable surfaces and covers; 12000 body/6000 cover samples against fixed cube (0.1 mm rigid intrusion tolerance), 9000 body samples against 0.15 mm body fields (0.02 mm numerical tolerance). Six 81-frame open-to-target approaches; self intersections every fifth frame; every third sweep target. Wrist concept, forearm, tendons, soft deformation and contact forces excluded. Not exhaustive continuous collision checking or physical validation.",
+  "elapsed_s": 12.704293012619019
+}

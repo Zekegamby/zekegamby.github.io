@@ -1,53 +1,53 @@
 <!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Motion lab — Zeke Gamby</title>
-  <meta name="description" content="Move your index finger. Watch a digital finger follow. An interactive camera experiment by industrial designer Zeke Gamby.">
-  <meta name="theme-color" content="#f5f4f0"><link rel="canonical" href="https://zekegamby.com/motion-lab.html">
-  <meta property="og:type" content="website"><meta property="og:title" content="Your hand. A digital echo. — Zeke Gamby"><meta property="og:description" content="A finger on screen, moved by yours. Try the motion lab."><meta property="og:url" content="https://zekegamby.com/motion-lab.html"><meta property="og:image" content="https://zekegamby.com/assets/robotics-bench.webp">
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><link rel="stylesheet" href="assets/motion-lab.css?v=20261013-motion-restored">
-  <script src="assets/motion-lab.js?v=20261013-motion-restored" type="module"></script>
-</head>
-<body>
-<a class="skip" href="#main">Skip to content</a>
-<header class="site-header"><div class="wrap header-inner"><a class="wordmark" href="index.html" aria-label="Zeke Gamby, home">Zeke Gamby</a><nav class="site-nav" aria-label="Main navigation"><a href="index.html#projects">Work</a><a href="motion-lab.html" aria-current="page">Motion lab</a><a href="index.html#contact">Contact</a></nav></div></header>
-<main id="main" class="wrap lab-page">
-  <header class="lab-intro"><div><p class="eyebrow">Interactive experiment / 01</p><h1>Your hand.<br><span>A digital echo.</span></h1></div><div class="lab-intro-copy"><p>Move your index finger.<br>Watch this one follow.</p><p class="lab-small">Bend, straighten, explore. All you need is a camera and a little curiosity.</p></div></header>
-  <section class="lab-workspace" aria-label="Interactive finger motion lab">
-    <div class="lab-display">
-      <div class="lab-stage" id="lab-stage">
-        <div class="lab-stage-top"><span>Digital finger / 3 joints</span><span class="lab-mode" id="lab-mode">Manual control</span></div>
-        <canvas id="finger-canvas" aria-label="Three-dimensional finger responding to the camera or the joint controls" role="img" hidden></canvas>
-        <svg id="finger-fallback" viewBox="0 0 800 600" role="img" aria-label="Side view of the digital finger, controlled by the joint sliders"><defs><linearGradient id="finger-blue" x1="0" x2="1"><stop stop-color="#152a43"/><stop offset=".55" stop-color="#486a98"/><stop offset="1" stop-color="#182f51"/></linearGradient></defs><ellipse cx="396" cy="511" rx="105" ry="14" fill="#263954" opacity=".09"/><path id="fallback-bones" d="M310 465L310 300L350 200L400 155" stroke="url(#finger-blue)" stroke-width="44" stroke-linecap="round" stroke-linejoin="round" fill="none"/><g id="fallback-joints" fill="#e3e8e6" stroke="#819692" stroke-width="2"><circle cx="310" cy="465" r="19"/><circle cx="310" cy="300" r="17"/><circle cx="350" cy="200" r="14"/></g><path id="fallback-tendon" d="M310 465L310 300L350 200L400 155" stroke="#8dbed4" stroke-width="3" fill="none"/></svg>
-        <p class="lab-render-note" id="render-note" role="status">Loading the 3D study…</p>
-        <div class="lab-stage-bottom"><span id="view-hint">An articulated motion study</span><div class="lab-views" role="group" aria-label="View angle"><button type="button" data-view="perspective" aria-pressed="true">3D</button><button type="button" data-view="side" aria-pressed="false">Side</button><button type="button" data-view="front" aria-pressed="false">Front</button></div></div>
-      </div>
-      <div class="lab-readouts" aria-label="Estimated joint bend angles"><div><span>01 / Base</span><p><output id="angle-0">14</output><span>°</span></p></div><div><span>02 / Middle</span><p><output id="angle-1">24</output><span>°</span></p></div><div><span>03 / Tip</span><p><output id="angle-2">16</output><span>°</span></p></div></div>
-    </div>
-    <aside class="lab-control-panel" aria-label="Motion controls">
-      <div class="lab-camera-section">
-        <div class="lab-panel-heading"><h2>You are the input.</h2><span class="lab-camera-label" id="camera-label">Camera off</span></div>
-        <div class="lab-camera-preview" id="camera-preview">
-          <video id="hand-video" playsinline muted autoplay aria-label="Mirrored live camera preview" hidden></video><canvas id="hand-overlay" aria-hidden="true" hidden></canvas>
-          <div class="lab-camera-placeholder" id="camera-placeholder"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M34 77V36c0-8 10-8 10 0v20-36c0-8 10-8 10 0v36-27c0-8 10-8 10 0v29-18c0-8 10-8 10 0v27c0 19-12 27-26 27-9 0-16-5-21-13L15 62c-4-8 5-13 10-7l9 11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg><p>Your hand goes here.</p><span>Keep your whole hand in view.</span></div>
-        </div>
-        <button class="lab-button lab-primary" id="camera-button" type="button" disabled>Enable camera</button>
-        <p class="lab-status" id="tracking-status" role="status" aria-live="polite">Use the controls below, or enable your camera.</p>
-        <p class="lab-privacy">Video stays on your device. Nothing is recorded or uploaded. No microphone access.</p>
-        <div class="lab-tracking-tips" id="tracking-tips" hidden><p>Show one hand, palm facing the camera. Slowly curl your index finger, then try a slight side angle.</p><button class="lab-text-button" id="manual-button" type="button">Switch to manual controls</button></div>
-      </div>
-      <fieldset class="lab-manual" id="manual-controls"><legend>Try it without a camera</legend><div class="lab-presets" role="group" aria-label="Finger poses"><button type="button" data-preset="open">Open</button><button type="button" data-preset="relaxed">Relaxed</button><button type="button" data-preset="curl">Curl</button></div>
-        <label for="joint-0">Base joint <span>01</span></label><input id="joint-0" type="range" min="0" max="100" value="14" step="1" aria-valuetext="14 degrees">
-        <label for="joint-1">Middle joint <span>02</span></label><input id="joint-1" type="range" min="0" max="115" value="24" step="1" aria-valuetext="24 degrees">
-        <label for="joint-2">Tip joint <span>03</span></label><input id="joint-2" type="range" min="0" max="85" value="16" step="1" aria-valuetext="16 degrees">
-        <button class="lab-text-button" id="demo-button" type="button" aria-pressed="false">Play a movement</button>
-      </fieldset>
-    </aside>
-  </section>
-  <noscript><p class="lab-noscript">This experiment needs JavaScript. You can still <a href="printed-robotics.html">explore the physical prototypes</a>.</p></noscript>
-  <div class="lab-context"><p>A study of movement, inspired by my printed robotics research. The model follows estimated joint angles; it does not simulate material behaviour or control a physical robot.</p><a class="text-link" href="printed-robotics.html">Meet the physical prototypes <span aria-hidden="true">↗</span></a></div>
-  <details class="lab-details"><summary>How it works &amp; camera help</summary><div><p>A hand tracker estimates landmarks from your camera. The finger’s three bend angles are measured relative to your palm, smoothed, and applied to the digital model. The model stays anchored so you can concentrate on the joints.</p><p>Use even lighting, show your entire hand, and avoid overlapping fingers. Fast motion and hidden joints can make the estimate jump. Try a slight side angle if a bend is hard to read.</p><p>If the camera is blocked, allow it in your browser’s site settings and retry. In an embedded browser, open this page in Safari, Chrome, Edge or Firefox. You can use the manual controls at any time.</p><p>The tracker and 3D libraries download when needed from jsDelivr and Google’s model hosting. Camera frames are processed locally and are neither stored nor sent to a server. Leaving the page or switching tabs turns the camera off.</p><p>Built with <a href="https://ai.google.dev/edge/mediapipe/solutions/vision/hand_landmarker" target="_blank" rel="noopener noreferrer">MediaPipe Hand Landmarker</a> and <a href="https://threejs.org/" target="_blank" rel="noopener noreferrer">Three.js</a>.</p></div></details>
-  <footer class="lab-footer"><a href="index.html">← Back to the portfolio</a><span>Zeke Gamby / Motion lab</span></footer>
-</main>
-</body></html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Motion lab — V14R3 + wrist — Zeke Gamby</title>
+<meta name="description" content="The revised V14 thumb and index, with a two-axis wrist and interactive box tracking. Actual hand CAD; a kinematic motion study.">
+<meta name="theme-color" content="#f5f4f0">
+<link rel="canonical" href="https://zekegamby.com/motion-lab.html">
+<meta property="og:type" content="website"><meta property="og:title" content="A hand that follows — Zeke Gamby"><meta property="og:description" content="Explore the latest V14R3 thumb and index, with interactive wrist-assisted box targeting."><meta property="og:url" content="https://zekegamby.com/motion-lab.html"><meta property="og:image" content="https://zekegamby.com/assets/robotics-bench.webp">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="./studies/v14r3/wrist.css">
+<link rel="stylesheet" href="./assets/latest-motion-lab.css">
+<script type="importmap">{"imports":{"three":"./studies/v14r3/vendor/three/three.module.js","three/addons/":"./studies/v14r3/vendor/three/jsm/"}}</script>
+</head><body>
+<header><a class="brand" href="index.html" aria-label="Zeke Gamby, home"><span>Zeke Gamby<small>MOTION LAB / HAND RESEARCH</small></span></a><nav><a href="printed-robotics.html">Research</a><a href="camera-motion-lab.html">Camera experiment ↗</a><button id="notesButton">Model &amp; checks</button><span class="version">V14R3 + WRIST</span></nav></header>
+<a class="skip" href="#main">Skip to content</a><main id="main">
+<div class="intro"><div><span class="eyebrow">CORRECTED THUMB · ORIGINAL HAND PROPORTIONS</span><h1>A hand that follows.</h1><p>Move the box. The wrist aims the hand; the thumb and index find the pinch.</p></div><div class="scope"><span class="dot"></span><div><strong>Live motion study</strong><small>Actual hand CAD · proposed two-axis wrist</small></div></div></div>
+<div class="lab">
+<aside class="panel controls">
+<div class="section-title"><span>01 / TARGET</span><span>12 mm cube</span></div>
+<div class="mode-switch"><button id="trackingMode" class="active">Follow box</button><button id="manualMode">Manual joints</button></div>
+<div id="targetControls">
+<div class="presets"><button data-preset="centre" class="active">Centre</button><button data-preset="left">Left</button><button data-preset="right">Right</button><button data-preset="higher">Higher</button><button data-preset="lower">Lower</button><button data-preset="forward">Forward</button></div>
+<label for="targetX">Left / right <output id="targetXValue">0 mm</output></label><input id="targetX" type="range" min="-35" max="35" value="0" step=".5">
+<label for="targetZ">Box height <output id="targetZValue">152.1 mm</output></label><input id="targetZ" type="range" min="128.1" max="176.1" value="152.1" step=".5">
+<label for="targetY">Forward / back <output id="targetYValue">0 mm</output></label><input id="targetY" type="range" min="-20" max="20" value="0" step=".5">
+<button id="sweep" class="primary full">Play box sweep</button>
+<p class="hint">The box keeps its position and orientation. Orange status means the hand cannot align both pads there.</p>
+</div>
+<div class="section-title wrist-title"><span>02 / WRIST</span><span>2 axes</span></div>
+<label class="check"><input id="wristAssist" type="checkbox" checked><span>Let the wrist help track</span></label>
+<label for="wristRoll">Forearm rotation <output id="wristRollValue">0.0°</output></label><input id="wristRoll" type="range" min="-55" max="55" value="0" step=".5" disabled>
+<label for="wristBend">Wrist bend <output id="wristBendValue">0.0°</output></label><input id="wristBend" type="range" min="-35" max="35" value="0" step=".5" disabled>
+<button id="lockWrist" class="full">Compare with wrist locked</button>
+<p class="hint">Rotation turns around the forearm. Bend tilts the palm. The four finger inputs stay separate.</p>
+<details id="manualDetails"><summary>Finger controls &amp; thumb checks</summary><div id="fingerSliders"></div><div class="two-buttons"><button id="curlOnly">Thumb curl only</button><button id="oppOnly">Opposition only</button></div><p class="hint">Manual controls pause tracking. Green marks the pads; terracotta marks the nail side.</p></details>
+<button id="reset" class="reset full">Reset experiment</button>
+</aside>
+<section class="panel scene-panel">
+<div class="scene-head"><div><span class="eyebrow">V14R3 / 75% HAND</span><strong id="phase">Preparing the corrected hand…</strong></div><span class="kinematic">KINEMATICS</span></div>
+<div id="viewport"><div id="loading"><div class="spinner"></div><strong>Loading your hand CAD</strong><span>Corrected thumb, seven finger joints, two wrist axes.</span></div><div class="view-buttons"><button id="view3D" class="active">3D</button><button id="viewPalm">Palm</button><button id="viewSide">Side</button></div><div class="scene-note">Drag to orbit · Scroll to zoom</div><div class="legend"><span><i class="green"></i>Pad</span><span><i class="nail"></i>Nail side</span><span><i class="gold"></i>Wrist concept</span></div></div>
+<div class="scene-footer"><button id="replay">Replay approach</button><label class="check"><input id="showGuides" type="checkbox" checked> Pad guides</label><span id="motionNote">No hardware connected</span></div>
+<div id="alignment" class="alignment waiting" role="status" aria-live="polite"><span class="status-dot"></span><div><strong id="reachTitle">Finding a pose…</strong><p id="reachText">The wrist and four finger inputs solve together.</p></div></div>
+<div class="boundary"><strong>Motion preview, not a grip test.</strong> This checks pad placement. It does not simulate holding force, slipping, tendon loads or soft-pad deformation.</div>
+</section>
+<aside class="panel readings"><div class="section-title"><span>03 / RESPONSE</span></div>
+<div class="big-reading"><span id="gapValue">—</span><small>mm</small></div><p class="metric-label">MAX PAD–FACE DISTANCE</p>
+<div class="metric"><span>Pad angle error</span><strong id="angleValue">—</strong></div><div class="metric"><span>Face edge margin</span><strong id="edgeValue">—</strong></div><div class="metric"><span>Wrist tracking</span><strong id="assistValue">Enabled</strong></div>
+<div class="section-title inputs"><span>FINGER INPUTS</span><span>4 motors</span></div><div id="inputReadings"></div>
+<div class="model-card"><span class="eyebrow">WHAT CHANGED</span><h2>V14, with a wrist.</h2><p>The revised thumb curls inward and opposes pad to pad. The original finger lengths and articulated structure remain.</p><p><strong>+2 proposed wrist axes</strong><br>These need additional actuation. The wrist shown here is a motion concept, not a printable joint or a finished tendon route.</p><a href="./studies/v14r3/assets/v14r3/V14R3_Thumb_Motion_Review.pdf" target="_blank" rel="noopener">Thumb correction review ↗</a></div>
+<button id="exportPose" class="full">Download this pose</button>
+</aside></div>
+<details class="checks" id="checks"><summary>Tested range, requirements and remaining checks</summary><div class="checks-grid"><div><h2>What the numbers mean</h2><p>For a 12 mm cube, each pad reference must be within 0.3 mm of an opposing face, within 15° of its normal and at least 1.5 mm inside the face edge. Both nail sides must face away from the target. A green result means these geometric checks pass at the solved pose.</p><p id="workspaceResult">Workspace test results loading…</p><p>The six preset approach paths passed sampled rigid hand–box and hand-part clearance checks. The wrist mechanism and forearm cable routing are excluded. Soft surface overlap reaches 0.97 mm in these paths; this does not establish actual pad compression or holding force.</p><p>Joint targets use four finger commands with assumed curl ratios. They are not calibrated servo commands or a tendon dynamics result. The box position is supplied by these controls; camera tracking is not included.</p><a href="./studies/v14r3/assets/v14r3/wrist-tests.json" target="_blank">Read reproducible motion checks ↗</a><p><a href="./studies/v14r3/assets/v14r3/collision-checks.json" target="_blank">Read sampled CAD clearance checks ↗</a></p></div><div><h2>Review against the V14 brief</h2><table><thead><tr><th>Requirement</th><th>Status</th></tr></thead><tbody><tr><td>V14 lengths, joints and four finger inputs retained</td><td>PASS</td></tr><tr><td>Recognisable articulated hand</td><td>PASS</td></tr><tr><td>Hand function &amp; physical tendon decoupling</td><td>UNVERIFIED</td></tr><tr><td>Assembly, wrist routing and actuator fit</td><td>UNVERIFIED</td></tr><tr><td>Joint durability &amp; actual pad softness</td><td>UNVERIFIED</td></tr><tr><td>Cost &amp; manufacturing-time advantage</td><td>UNVERIFIED</td></tr><tr><td>Evidence and limitations stated</td><td>PASS</td></tr></tbody></table><p>Wrist motion is the requested extension. Limits of ±55° rotation and ±35° bend are engineering assumptions. Its bearings, motors, cable service loops and printed parts still need design. The hand remains a PolyJet concept; existing FDM covers and supports remain auxiliary parts.</p></div></div></details>
+</main><noscript><p class="noscript-note">This interactive study needs JavaScript. <a href="printed-robotics.html">Read the research</a> or <a href="studies/v14r3/assets/v14r3/V14R3_Thumb_Motion_Review.pdf">view the thumb motion review</a>.</p></noscript><footer><a href="index.html">← Back to the portfolio</a> <span>Experimental V14R3 + wrist · No print release or physical grip validation</span></footer>
+<script type="module" src="./studies/v14r3/wrist-app.js"></script></body></html>

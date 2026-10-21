@@ -31,3 +31,7 @@ Mobile startup keeps the permission request separate from active tracking. A tem
 `assets/finger-kinematics.mjs` estimates index-finger bend angles from world landmarks in a palm-relative coordinate frame. Translation, scale and wrist rotation do not drive the rig. It clamps angles and smooths movement; occluded joints remain estimates. No force, collision or material simulation is performed. `assets/finger-renderer.mjs` draws an original articulated visual model with Three.js **0.180.0**, loaded only on this page. A locally rendered SVG side view remains interactive if the 3D library or WebGL cannot load. There is no automatic animation or camera start.
 
 Run `node --experimental-vm-modules --test tests/*.test.mjs` for pose geometry and camera lifecycle tests. Lifecycle tests use a mocked DOM, worker and camera; they do not replace browser and real-camera checks.
+
+## Latest research motion study
+
+`motion-lab.html` now hosts the reviewed V14R3 + two-axis wrist study from Finger Motion Lab source commit d9686bb. Runtime files, hand CAD, vendored Three.js modules and the existing checks/review are under `studies/v14r3/`. Assets resolve locally; no account, camera or paid API is required. Controls, kinematics and evidence limits are preserved. The earlier camera experiment remains at `camera-motion-lab.html`. The homepage and research page link to the latest study.
