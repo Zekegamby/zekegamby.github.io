@@ -197,3 +197,7 @@ figcaption{display:flex;justify-content:space-between;gap:20px;font-size:12px;li
 .research-lab-link{margin-bottom:28px;font-size:14px}
 @media(max-width:640px){.lab-invite{grid-template-columns:1fr 105px;gap:10px;padding:27px 24px;margin-bottom:24px}.lab-invite h2{font-size:29px}.lab-invite p:not(.eyebrow){font-size:13px;max-width:26ch}.lab-invite svg{width:150px;max-width:none;transform:translateX(-12px)}.lab-invite-link{margin-top:20px}.site-nav{gap:12px;font-size:11px}}
 @media(max-width:360px){.header-inner{gap:12px}.wordmark{font-size:18px}.site-nav{gap:10px;font-size:10px}.lab-invite{grid-template-columns:1fr}.lab-invite svg{display:none}}
+
+/* Research-only homepage. */
+.research-focus{scroll-margin-top:110px;border-top:1px solid var(--line);padding-top:40px}
+@media(max-width:640px){.research-focus{padding-top:28px}}

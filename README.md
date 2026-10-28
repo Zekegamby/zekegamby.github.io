@@ -1,18 +1,19 @@
-# Zeke Gamby portfolio
+# Zeke Gamby — master’s research
 
-Static HTML portfolio served by GitHub Pages at `zekegamby.com`.
+Static HTML research website served by GitHub Pages at `zekegamby.com`. The public site focuses on the Master of Design Innovation research in AI-assisted design and multimaterial printed robotics.
 
 ## Editing
 
-- `index.html`: homepage and selected work.
-- The five other HTML pages: individual project case studies. Existing URLs are retained.
+- `index.html`: research overview, recorded prototype interaction, process and researcher introduction.
+- `printed-robotics.html`: research detail, physical prototypes and test footage.
+- The five former portfolio case-study URLs redirect to the research page. Their earlier content remains in Git history.
 - `assets/site.css`: shared responsive design, typography and layout.
 - `assets/site.js`: optional keyboard-accessible image viewer. Content and navigation work without JavaScript.
 - `assets/*.webp`: optimised project photographs and images extracted from the existing project document.
 
 No framework, dependency installation, or build step is required. Open `index.html` locally to review the website. Preserve `CNAME`, `.nojekyll`, the original images, videos and PDF when updating.
 
-Concept renders and physical prototypes are labelled separately on the Limb It Less page. The original PDF remains available as a direct link.
+Original media and the earlier project PDF are retained as source assets; the research site does not link to the former portfolio projects.
 
 ## Interactive research study
 
