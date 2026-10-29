@@ -1,53 +1,6 @@
 <!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Camera motion lab — Zeke Gamby</title>
-  <meta name="description" content="Move your index finger. Watch a digital finger follow. An interactive camera experiment by industrial designer Zeke Gamby.">
-  <meta name="theme-color" content="#f5f4f0"><link rel="canonical" href="https://zekegamby.com/camera-motion-lab.html">
-  <meta property="og:type" content="website"><meta property="og:title" content="Your hand. A digital echo. — Zeke Gamby"><meta property="og:description" content="A finger on screen, moved by yours. Try the motion lab."><meta property="og:url" content="https://zekegamby.com/camera-motion-lab.html"><meta property="og:image" content="https://zekegamby.com/assets/robotics-bench.webp">
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><link rel="stylesheet" href="assets/motion-lab.css?v=20261013-motion-restored">
-  <script src="assets/motion-lab.js?v=20261013-motion-restored" type="module"></script>
-</head>
-<body>
-<a class="skip" href="#main">Skip to content</a>
-<header class="site-header"><div class="wrap header-inner"><a class="wordmark" href="index.html" aria-label="Zeke Gamby, home">Zeke Gamby</a><nav class="site-nav" aria-label="Main navigation"><a href="index.html#research">Research</a><a href="motion-lab.html">Latest motion study</a><a href="index.html#contact">Contact</a></nav></div></header>
-<main id="main" class="wrap lab-page">
-  <header class="lab-intro"><div><p class="eyebrow">Interactive experiment / 01</p><h1>Your hand.<br><span>A digital echo.</span></h1></div><div class="lab-intro-copy"><p>Move your index finger.<br>Watch this one follow.</p><p class="lab-small">Bend, straighten, explore. All you need is a camera and a little curiosity.</p></div></header>
-  <section class="lab-workspace" aria-label="Interactive finger motion lab">
-    <div class="lab-display">
-      <div class="lab-stage" id="lab-stage">
-        <div class="lab-stage-top"><span>Digital finger / 3 joints</span><span class="lab-mode" id="lab-mode">Manual control</span></div>
-        <canvas id="finger-canvas" aria-label="Three-dimensional finger responding to the camera or the joint controls" role="img" hidden></canvas>
-        <svg id="finger-fallback" viewBox="0 0 800 600" role="img" aria-label="Side view of the digital finger, controlled by the joint sliders"><defs><linearGradient id="finger-blue" x1="0" x2="1"><stop stop-color="#152a43"/><stop offset=".55" stop-color="#486a98"/><stop offset="1" stop-color="#182f51"/></linearGradient></defs><ellipse cx="396" cy="511" rx="105" ry="14" fill="#263954" opacity=".09"/><path id="fallback-bones" d="M310 465L310 300L350 200L400 155" stroke="url(#finger-blue)" stroke-width="44" stroke-linecap="round" stroke-linejoin="round" fill="none"/><g id="fallback-joints" fill="#e3e8e6" stroke="#819692" stroke-width="2"><circle cx="310" cy="465" r="19"/><circle cx="310" cy="300" r="17"/><circle cx="350" cy="200" r="14"/></g><path id="fallback-tendon" d="M310 465L310 300L350 200L400 155" stroke="#8dbed4" stroke-width="3" fill="none"/></svg>
-        <p class="lab-render-note" id="render-note" role="status">Loading the 3D study…</p>
-        <div class="lab-stage-bottom"><span id="view-hint">An articulated motion study</span><div class="lab-views" role="group" aria-label="View angle"><button type="button" data-view="perspective" aria-pressed="true">3D</button><button type="button" data-view="side" aria-pressed="false">Side</button><button type="button" data-view="front" aria-pressed="false">Front</button></div></div>
-      </div>
-      <div class="lab-readouts" aria-label="Estimated joint bend angles"><div><span>01 / Base</span><p><output id="angle-0">14</output><span>°</span></p></div><div><span>02 / Middle</span><p><output id="angle-1">24</output><span>°</span></p></div><div><span>03 / Tip</span><p><output id="angle-2">16</output><span>°</span></p></div></div>
-    </div>
-    <aside class="lab-control-panel" aria-label="Motion controls">
-      <div class="lab-camera-section">
-        <div class="lab-panel-heading"><h2>You are the input.</h2><span class="lab-camera-label" id="camera-label">Camera off</span></div>
-        <div class="lab-camera-preview" id="camera-preview">
-          <video id="hand-video" playsinline muted autoplay aria-label="Mirrored live camera preview" hidden></video><canvas id="hand-overlay" aria-hidden="true" hidden></canvas>
-          <div class="lab-camera-placeholder" id="camera-placeholder"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M34 77V36c0-8 10-8 10 0v20-36c0-8 10-8 10 0v36-27c0-8 10-8 10 0v29-18c0-8 10-8 10 0v27c0 19-12 27-26 27-9 0-16-5-21-13L15 62c-4-8 5-13 10-7l9 11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg><p>Your hand goes here.</p><span>Keep your whole hand in view.</span></div>
-        </div>
-        <button class="lab-button lab-primary" id="camera-button" type="button" disabled>Enable camera</button>
-        <p class="lab-status" id="tracking-status" role="status" aria-live="polite">Use the controls below, or enable your camera.</p>
-        <p class="lab-privacy">Video stays on your device. Nothing is recorded or uploaded. No microphone access.</p>
-        <div class="lab-tracking-tips" id="tracking-tips" hidden><p>Show one hand, palm facing the camera. Slowly curl your index finger, then try a slight side angle.</p><button class="lab-text-button" id="manual-button" type="button">Switch to manual controls</button></div>
-      </div>
-      <fieldset class="lab-manual" id="manual-controls"><legend>Try it without a camera</legend><div class="lab-presets" role="group" aria-label="Finger poses"><button type="button" data-preset="open">Open</button><button type="button" data-preset="relaxed">Relaxed</button><button type="button" data-preset="curl">Curl</button></div>
-        <label for="joint-0">Base joint <span>01</span></label><input id="joint-0" type="range" min="0" max="100" value="14" step="1" aria-valuetext="14 degrees">
-        <label for="joint-1">Middle joint <span>02</span></label><input id="joint-1" type="range" min="0" max="115" value="24" step="1" aria-valuetext="24 degrees">
-        <label for="joint-2">Tip joint <span>03</span></label><input id="joint-2" type="range" min="0" max="85" value="16" step="1" aria-valuetext="16 degrees">
-        <button class="lab-text-button" id="demo-button" type="button" aria-pressed="false">Play a movement</button>
-      </fieldset>
-    </aside>
-  </section>
-  <noscript><p class="lab-noscript">This experiment needs JavaScript. You can still <a href="printed-robotics.html">explore the physical prototypes</a>.</p></noscript>
-  <div class="lab-context"><p>A study of movement, inspired by my printed robotics research. The model follows estimated joint angles; it does not simulate material behaviour or control a physical robot.</p><a class="text-link" href="printed-robotics.html">Meet the physical prototypes <span aria-hidden="true">↗</span></a></div>
-  <details class="lab-details"><summary>How it works &amp; camera help</summary><div><p>A hand tracker estimates landmarks from your camera. The finger’s three bend angles are measured relative to your palm, smoothed, and applied to the digital model. The model stays anchored so you can concentrate on the joints.</p><p>Use even lighting, show your entire hand, and avoid overlapping fingers. Fast motion and hidden joints can make the estimate jump. Try a slight side angle if a bend is hard to read.</p><p>If the camera is blocked, allow it in your browser’s site settings and retry. In an embedded browser, open this page in Safari, Chrome, Edge or Firefox. You can use the manual controls at any time.</p><p>The tracker and 3D libraries download when needed from jsDelivr and Google’s model hosting. Camera frames are processed locally and are neither stored nor sent to a server. Leaving the page or switching tabs turns the camera off.</p><p>Built with <a href="https://ai.google.dev/edge/mediapipe/solutions/vision/hand_landmarker" target="_blank" rel="noopener noreferrer">MediaPipe Hand Landmarker</a> and <a href="https://threejs.org/" target="_blank" rel="noopener noreferrer">Three.js</a>.</p></div></details>
-  <footer class="lab-footer"><a href="index.html">← Back to the research overview</a><span>Zeke Gamby / Motion lab</span></footer>
-</main>
-</body></html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Master’s research — Zeke Gamby</title><meta name="robots" content="noindex,follow">
+<meta http-equiv="refresh" content="0; url=index.html#research"><link rel="canonical" href="https://zekegamby.com/">
+<link rel="stylesheet" href="assets/research.css"></head><body><main class="wrap"><h1>Master’s research</h1>
+<p><a class="text-link" href="index.html#research">Explore Zeke Gamby’s current research</a></p></main></body></html>
