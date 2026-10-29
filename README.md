@@ -17,3 +17,7 @@ The homepage leads with the current physical prototype, followed by a concise re
 Former research-detail, Motion Lab, camera experiment and unrelated portfolio page URLs redirect to the research section of the homepage. Historical simulation sources and media remain in the repository, but are not loaded or linked by the homepage. No root HTML page loads camera code.
 
 No build step or dependencies. Preserve CNAME and .nojekyll. Check internal links, video decoding and live source after deployment.
+
+## Research framing
+
+The modified process refers to the design-to-print workflow, as confirmed by Zeke. The homepage now explains the connection between AI-generated geometry/material instructions, PolyJet fabrication and designer-led physical testing. A three-step process and a concrete finger example make the technical contribution understandable without publishing implementation details. Expandable context credits PolyJet’s existing multimaterial/voxel capabilities and links to the manufacturer’s guide. No unsupported novelty, fully autonomous development, printer hardware modification or proven superiority claim is made.

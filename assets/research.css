@@ -42,3 +42,27 @@ h2{font-size:clamp(36px,3.5vw,54px);line-height:1.15}
 .footer-bottom{font-size:14px}
 @media(max-width:1000px){h1{font-size:clamp(44px,6.2vw,66px)}.hero{gap:30px}.hero-detail{font-size:14px}.research-copy p,.about>div>p{font-size:17px}.video-label{font-size:8px}figcaption{font-size:9px}}
 @media(max-width:700px){html{scroll-padding-top:142px}.site-header{flex-wrap:wrap;gap:0;padding-top:14px;padding-bottom:8px}.wordmark{width:100%}nav{width:100%;justify-content:space-between;gap:12px;font-size:13px;margin-top:6px}.hero{grid-template-columns:1fr;padding-top:34px;gap:32px}.hero-copy>.eyebrow{font-size:10px}h1{font-size:clamp(42px,8.4vw,60px);margin-top:22px}h1 span:before{content:none}.intro{font-size:21px;margin-top:24px}.prototype{max-width:405px}.research-intro{grid-template-columns:1fr;gap:24px;padding-top:30px;padding-bottom:30px}.research-copy .lead{font-size:24px}.research-copy p,.progress-note>div,.about>div>p{font-size:17px}.progress-note,.about{grid-template-columns:1fr;gap:18px}.progress-note{padding-bottom:30px}.about{padding-top:24px}.contact-title{font-size:56px}.footer-credit{width:100%}}
+
+/* Research depth without adding navigation or hiding the actual work. */
+.hero-detail{max-width:40ch}
+.process-panel{background:#e6e9e1;border-top:2px solid var(--blue);padding:32px;margin-bottom:12px}
+.process-heading{display:flex;justify-content:space-between;gap:30px;align-items:baseline}
+.process-heading h3{font-size:24px;margin:0;max-width:28ch}
+.process-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:34px;list-style:none;margin:36px 0 0;padding:0}
+.process-steps li{min-width:0;border-top:1px solid #b8beb1;padding-top:16px}
+.step-label{font-size:11px;color:var(--blue);letter-spacing:.035em}
+h4{font-size:19px;font-weight:500;letter-spacing:-.025em;line-height:1.4;margin:18px 0 12px}
+.process-steps p{font-size:16px;line-height:1.7;color:#555b50}
+.process-caption{font-size:13px;line-height:1.6;color:#555b50;max-width:80ch;border-top:1px solid #b8beb1;margin-top:30px;padding-top:18px}
+.research-row{display:grid;grid-template-columns:1.15fr 1fr;gap:clamp(36px,6vw,100px);padding-block:36px;border-bottom:1px solid var(--line)}
+.research-row h3{font-size:28px;margin:0;line-height:1.25;letter-spacing:-.04em}
+.research-row>div{max-width:55ch;font-size:18px;line-height:1.7;color:var(--muted)}
+.research-row .example-note{color:var(--ink)}
+.technical-context{border-bottom:1px solid var(--line);margin-bottom:30px;padding-block:22px;font-size:16px}
+.technical-context summary{cursor:pointer;font-weight:500;line-height:1.6;padding-right:12px}
+.technical-context summary:focus-visible{outline:2px solid var(--blue);outline-offset:6px}
+.technical-context>div{max-width:66ch;margin:22px 0 4px;color:var(--muted)}
+.technical-context a{font-size:13px;display:inline-block;margin-top:18px;text-decoration:underline}
+.progress-note{border-top:0}
+@media(max-width:900px){.process-heading{display:block}.process-heading h3{margin-top:14px;max-width:100%}.process-steps{gap:22px}.process-steps p{font-size:15px}}
+@media(max-width:700px){.process-panel{padding:24px 20px}.process-steps{grid-template-columns:1fr;gap:24px;margin-top:24px}.process-steps h4{margin-top:10px}.process-steps p{font-size:16px}.research-row{grid-template-columns:1fr;gap:18px;padding-block:30px}.research-row>div{font-size:17px}.research-row h3{font-size:27px}.technical-context{font-size:16px}.process-caption{font-size:13px}}
