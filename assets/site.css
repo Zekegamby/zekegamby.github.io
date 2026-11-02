@@ -201,3 +201,10 @@ figcaption{display:flex;justify-content:space-between;gap:20px;font-size:12px;li
 /* Research-only homepage. */
 .research-focus{scroll-margin-top:110px;border-top:1px solid var(--line);padding-top:40px}
 @media(max-width:640px){.research-focus{padding-top:28px}}
+
+/* Physical prototype photographs lead the earlier prosthetics work. */
+.project-image.prototype-pair{display:grid;grid-template-columns:.75fr 1.2fr;gap:8px;background:#ece7df;align-items:center}
+.project-image.prototype-pair img{width:100%;height:auto;aspect-ratio:auto;object-fit:contain;padding:0}
+.gallery.prototype-hero{grid-template-columns:.75fr 1.2fr;align-items:start;margin-bottom:0;gap:24px}
+.gallery.prototype-hero .portrait img{width:100%;height:auto;aspect-ratio:auto;max-height:none;object-fit:contain}
+@media(max-width:640px){.gallery.prototype-hero{grid-template-columns:1fr;gap:28px}.project-image.prototype-pair{gap:5px}}
