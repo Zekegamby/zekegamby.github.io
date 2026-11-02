@@ -16,3 +16,6 @@ dialog{border:0;padding:24px;background:var(--paper);color:var(--ink);width:min(
 .studio-link{display:grid;grid-template-columns:1fr 2.2fr auto;gap:30px;align-items:center;background:#2e4d5e;color:#f5f4ef;padding:24px 28px;margin-top:36px}
 .studio-link:hover{text-decoration:none;background:#243e4c}.studio-label{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:#c6d5d8}.studio-copy strong{display:block;font-size:20px;font-weight:450;letter-spacing:-.025em;line-height:1.4}.studio-copy>span{display:block;font-size:12px;color:#c6d5d8;margin-top:5px}.studio-arrow{font-size:30px}
 @media(max-width:700px){html{scroll-padding-top:130px}.header-inner{flex-wrap:wrap;gap:0;padding-top:12px;padding-bottom:7px}.wordmark{width:100%}nav{width:100%;justify-content:space-between;gap:18px;font-size:12px;margin-top:4px}.studio-link{grid-template-columns:1fr auto;gap:12px 20px;padding:22px;margin-top:30px}.studio-label{grid-column:1/-1}.studio-copy strong{font-size:18px}.studio-arrow{font-size:26px}}
+
+/* Keep secondary portfolio navigation comfortable on small screens. */
+@media(max-width:400px){nav{gap:10px;font-size:11px}}

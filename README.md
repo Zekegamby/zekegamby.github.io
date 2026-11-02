@@ -8,6 +8,8 @@ The homepage presents a studio visualisation and current prototype video, follow
 
 - `index.html`, `assets/research.css`, `assets/research.js`: responsive portfolio and accessible native-dialog image viewer.
 - `motion-lab.html`: restored V14R3 wrist-assisted box-tracking study; no camera access or camera experiment links.
+- `portfolio.html`: secondary past-work index, linked from the homepage navigation and footer.
+- `project1.html`, `idle-motion.html`, `ball-grabber.html`, `wearable-products.html`, `order-in-chaos.html`: restored earlier case studies, with navigation back to the portfolio and current research.
 - `camera-motion-lab.html`: redirect to the research homepage.
 - LinkedIn: https://www.linkedin.com/in/zeke-gamby-300028306/
 
