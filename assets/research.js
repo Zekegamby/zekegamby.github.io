@@ -1,13 +1,5 @@
 (() => {
-  const video = document.getElementById('prototype-video');
-  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  if (video && !reducedMotion.matches && !navigator.connection?.saveData) {
-    video.muted = true;
-    video.play().catch(() => {});
-  }
-  reducedMotion.addEventListener('change', event => {
-    if (event.matches && video) video.pause();
-  });
+  // The product film uses native controls and starts only when requested.
 
   const filters = [...document.querySelectorAll('[data-filter]')];
   const items = [...document.querySelectorAll('[data-category]')];

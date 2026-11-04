@@ -19,3 +19,7 @@ dialog{border:0;padding:24px;background:var(--paper);color:var(--ink);width:min(
 
 /* Keep secondary portfolio navigation comfortable on small screens. */
 @media(max-width:400px){nav{gap:10px;font-size:11px}}
+
+/* Click-to-play product film; preserve the full studio framing on every screen. */
+.product-film figure{margin:0}.product-film-stage{background:#202825;overflow:hidden}.product-film-stage video{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:contain}.product-film figcaption{padding-top:17px}.film-duration{font-size:11px;color:var(--muted);white-space:nowrap}.product-film figcaption strong{font-size:16px}.product-film .caption-detail{font-size:12px}
+@media(max-width:700px){.product-film figcaption{gap:15px}.film-duration{font-size:10px}.product-film figcaption strong{font-size:14px}}
