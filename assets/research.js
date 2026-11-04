@@ -1,5 +1,33 @@
 (() => {
-  // The product film uses native controls and starts only when requested.
+  const film = document.getElementById('product-film-video');
+  if (film) {
+    const play = document.getElementById('film-play');
+    const sound = document.getElementById('film-sound');
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let manualPause = reduced.matches;
+    const sync = () => {
+      play.textContent = film.paused ? 'Play' : 'Pause';
+      play.setAttribute('aria-label', film.paused ? 'Play film' : 'Pause film');
+      sound.textContent = film.muted ? 'Sound off' : 'Sound on';
+      sound.setAttribute('aria-label', film.muted ? 'Turn sound on' : 'Turn sound off');
+    };
+    const start = () => film.play().catch(sync);
+    film.muted = true;
+    if (reduced.matches) { film.autoplay = false; film.pause(); } else start();
+    play.addEventListener('click', () => { manualPause = !film.paused; film.paused ? start() : film.pause(); });
+    sound.addEventListener('click', () => { film.muted = !film.muted; sync(); });
+    ['play','pause','volumechange'].forEach(event => film.addEventListener(event, sync));
+    new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting && !manualPause && !document.hidden) start();
+      else film.pause();
+    }, {threshold: 0.1}).observe(film);
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) film.pause();
+      else if (!manualPause && film.getBoundingClientRect().bottom > 0 && film.getBoundingClientRect().top < innerHeight) start();
+    });
+    reduced.addEventListener('change', () => { if (reduced.matches) { manualPause = true; film.pause(); } });
+    sync();
+  }
 
   const filters = [...document.querySelectorAll('[data-filter]')];
   const items = [...document.querySelectorAll('[data-category]')];
