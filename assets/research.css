@@ -20,6 +20,7 @@ dialog{border:0;padding:24px;background:var(--paper);color:var(--ink);width:min(
 /* Keep secondary portfolio navigation comfortable on small screens. */
 @media(max-width:400px){nav{gap:10px;font-size:11px}}
 
-/* Click-to-play product film; preserve the full studio framing on every screen. */
-.product-film figure{margin:0}.product-film-stage{background:#202825;overflow:hidden}.product-film-stage video{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:contain}.product-film figcaption{padding-top:17px}.film-duration{font-size:11px;color:var(--muted);white-space:nowrap}.product-film figcaption strong{font-size:16px}.product-film .caption-detail{font-size:12px}
-@media(max-width:700px){.product-film figcaption{gap:15px}.film-duration{font-size:10px}.product-film figcaption strong{font-size:14px}}
+/* The film stays gently behind the page as visitors scroll past. */
+.product-film{height:140svh;position:relative;background:#202825}.product-film-stage{position:sticky;top:82px;height:calc(100svh - 82px);overflow:hidden;background:#202825}.product-film-stage video{width:100%;height:100%;object-fit:cover}.film-tools{position:absolute;right:var(--gutter);bottom:28px;display:flex;gap:18px}.film-tools button,.film-scroll{font-size:11px;letter-spacing:.03em;color:white;text-shadow:0 1px 8px #000;background:none;border:0;padding:10px 0}.film-scroll{position:absolute;left:var(--gutter);bottom:28px}.film-tools button:hover,.film-scroll:hover{text-decoration:underline}.intro{position:relative;background:var(--paper)}
+@media(max-width:700px){.product-film{height:105svh}.product-film-stage{top:108px;height:calc(100svh - 108px)}.product-film-stage video{object-fit:contain}.film-tools{bottom:22px;gap:14px}.film-scroll{bottom:22px}}
+@media(prefers-reduced-motion:reduce){.product-film{height:auto}.product-film-stage{position:relative;top:0}}
