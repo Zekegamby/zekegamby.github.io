@@ -4,7 +4,7 @@ Static website at https://zekegamby.com/, published through GitHub Pages.
 
 ## Experience
 
-The homepage presents a studio visualisation and current prototype video, followed by six selected physical experiments and CAD studies. Visitors can filter the gallery, enlarge images and browse with arrow keys. The research explanation sits beneath the work with expandable technical context. The box-tracking Motion Studio is accessible from navigation and a prominent homepage link. The camera-based motion-capture route remains redirected.
+The homepage features a 43-second Again Robotics product film made only from Zeke’s photo-booth footage and the J850 printing video, followed by six selected physical experiments and CAD studies. Playback is click-to-play, with sound and native controls. Visitors can filter the gallery, enlarge images and browse with arrow keys. The research explanation sits beneath the work with expandable technical context. The box-tracking Motion Studio is accessible from navigation and a prominent homepage link. The camera-based motion-capture route remains redirected.
 
 - `index.html`, `assets/research.css`, `assets/research.js`: responsive portfolio and accessible native-dialog image viewer.
 - `motion-lab.html`: restored V14R3 wrist-assisted box-tracking study; no camera access or camera experiment links.
@@ -26,6 +26,8 @@ All gallery files are web-optimised derivatives; source geometry and photos are 
 | `assets/gallery/early-test-series.webp` | `IMG_0972.JPG`, Library `libfile_1d3f1e1131108191b0725cc1c56a0190` | Physical material samples, joints and actuated finger. |
 | `assets/gallery/printed-joint.webp` | `IMG_0987.JPG`, Library `libfile_f27efc6d2a608191a03719de7db19d27` | Close-up photograph of an earlier physical joint. |
 | `assets/gallery/skin-test.webp` | `IMG_0980.JPG`, Library `libfile_333a42cf8cc08191ad8124e640971f32` | Photograph of an earlier skin experiment. |
+| `assets/again-robotics-product-film.mp4` | Photo-booth clips `MVI_4323.MP4`, `MVI_4317.MP4`, `MVI_4316.MP4`, `MVI_4319.MP4`, plus printing clip `IMG_0187.MOV`; edited master Library `libfile_96c647ad875481918b6898e3a026dc47` | 43-second product film; actual footage, real-time movement cuts, original electronic score. No desk footage, simulations, generated imagery or fabricated interface. Closed-loop automation is labelled as a goal. |
+| `assets/again-robotics-product-poster.jpg` | Frame from `MVI_4323.MP4` with the film title overlaid | Actual studio footage. |
 | `assets/current-hand-demo.mp4` | `IMG_0377.MOV`, Library `libfile_8737d17363e88191aef642a397bc91f8` | Full 23.71-second physical thumb-and-index test; H.264/AAC, 480 × 854, approximately 705 KB. |
 | `assets/current-hand-poster.jpg` | Frame at 10.5 seconds from the same uploaded video | Actual prototype. |
 
@@ -37,4 +39,4 @@ The generated source PNG is kept in the workspace `generated_images` directory. 
 
 ## Validation and editing
 
-No build or external dependencies for the homepage. Preserve `CNAME`, `.nojekyll` and the Motion Studio’s existing vendored assets. Validate local links and media, gallery filtering/dialog controls, and live deployment. The muted video respects reduced-motion and data-saving preferences. Native playback controls and image links work without JavaScript; the gallery filters only enhance browsing.
+No build or external dependencies for the homepage. Preserve `CNAME`, `.nojekyll` and the Motion Studio’s existing vendored assets. Validate local links and media, gallery filtering/dialog controls, and live deployment. The product film does not autoplay or loop; only metadata is preloaded. Native playback controls and image links work without JavaScript; the gallery filters only enhance browsing.
