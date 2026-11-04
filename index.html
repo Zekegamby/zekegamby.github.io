@@ -9,7 +9,7 @@
 <meta property="og:description" content="AI-assisted design. A modified PolyJet workflow. An evolving collection of printed robotic experiments.">
 <meta property="og:url" content="https://zekegamby.com/"><meta property="og:image" content="https://zekegamby.com/assets/again-robotics-product-poster.jpg">
 <meta property="og:image:alt" content="Again Robotics printed thumb-and-index prototype photographed in the studio">
-<link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/research.css?v=product-film-1">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/research.css?v=product-film-2">
 <link rel="preload" href="assets/again-robotics-product-poster.jpg" as="image" fetchpriority="high">
 </head>
 <body>
@@ -20,16 +20,18 @@
 <nav aria-label="Main navigation"><a href="#work">Work</a><a href="motion-lab.html?v=box-study">Studio</a><a href="#research">Research</a><a href="portfolio.html">Portfolio</a><a href="#contact">Contact <span aria-hidden="true">↗</span></a></nav>
 </div></header>
 <main id="main">
+<section class="product-film" id="film" aria-label="Again Robotics product film">
+<div class="product-film-stage">
+<video id="product-film-video" autoplay muted loop playsinline preload="auto" poster="assets/again-robotics-product-poster.jpg" width="1920" height="1080" aria-label="Again Robotics: printed hand movement and PolyJet manufacturing"><source src="assets/again-robotics-product-film.mp4" type="video/mp4"></video>
+<div class="film-tools"><button id="film-play" type="button" aria-label="Pause film">Pause</button><button id="film-sound" type="button" aria-label="Turn sound on">Sound off</button></div>
+<a class="film-scroll" href="#intro-title" aria-label="Scroll to explore the work">Scroll to explore ↓</a>
+</div>
+</section>
 <section class="intro wrap" aria-labelledby="intro-title">
 <div><p class="eyebrow">Master’s research / Wellington, NZ</p><h1 id="intro-title">Giving AI<br><span>physical form.</span></h1></div>
 <div class="intro-copy"><p>I’m building a more direct path from AI design to physical hardware.</p><p class="muted">A modified PolyJet workflow.<br>Robotic hands as the test case.</p><a class="text-link" href="#film">Watch the film <span aria-hidden="true">↓</span></a></div>
 </section>
-<section class="product-film wrap" id="film" aria-labelledby="film-title">
-<figure>
-<div class="product-film-stage"><video id="product-film-video" controls playsinline preload="metadata" poster="assets/again-robotics-product-poster.jpg" width="1920" height="1080" aria-label="Again Robotics product film: studio footage of the printed hand moving and PolyJet manufacturing"><source src="assets/again-robotics-product-film.mp4" type="video/mp4"><p><a href="assets/again-robotics-product-film.mp4">Watch the Again Robotics product film</a></p></video></div>
-<figcaption><span><strong id="film-title">Again Robotics</strong><span class="caption-detail">Giving AI physical form.</span></span><span class="film-duration">Product film / 43 seconds</span></figcaption>
-</figure>
-</section>
+
 <div class="wrap"><a class="studio-link" href="motion-lab.html?v=box-study"><span class="studio-label">Interactive / Motion Studio</span><span class="studio-copy"><strong>Move the box. Watch the hand follow.</strong><span>Explore the wrist and finger motion study.</span></span><span class="studio-arrow" aria-hidden="true">↗</span></a></div>
 <section class="work wrap" id="work" aria-labelledby="work-title">
 <div class="section-top"><div><p class="eyebrow">Selected experiments</p><h2 id="work-title">Made. Tested. Reconsidered.</h2></div><p class="section-intro">The prints and studies behind the current prototype. Every iteration asks a different question.</p></div>
@@ -52,5 +54,5 @@
 </main>
 <footer id="contact"><div class="wrap"><p class="eyebrow">Ideas, questions, collaborations</p><a class="contact-title" href="mailto:zekegamby@gmail.com">Let’s talk.<span aria-hidden="true">↗</span></a><div class="footer-bottom"><a href="mailto:zekegamby@gmail.com">zekegamby@gmail.com</a><div><a href="portfolio.html">Past work</a><a href="https://www.linkedin.com/in/zeke-gamby-300028306/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a><a href="https://instagram.com/zekesdesigns" target="_blank" rel="noopener noreferrer">Instagram ↗</a></div><a href="#main">Back to top ↑</a></div></div></footer>
 <dialog id="image-viewer" aria-labelledby="viewer-title"><div class="viewer-top"><span id="viewer-count"></span><button type="button" id="viewer-close" aria-label="Close image viewer">Close ×</button></div><img id="viewer-image" alt="Enlarged selected work"><div class="viewer-bottom"><button type="button" id="viewer-prev" aria-label="Previous image">←</button><div><h2 id="viewer-title"></h2><p id="viewer-caption"></p></div><button type="button" id="viewer-next" aria-label="Next image">→</button></div></dialog>
-<script src="assets/research.js?v=product-film-1" defer></script>
+<script src="assets/research.js?v=product-film-2" defer></script>
 </body></html>
