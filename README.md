@@ -4,7 +4,7 @@ Static website at https://zekegamby.com/, published through GitHub Pages.
 
 ## Experience
 
-The homepage features a 43-second Again Robotics product film made only from Zeke’s photo-booth footage and the J850 printing video, followed by six selected physical experiments and CAD studies. Playback is click-to-play, with sound and native controls. Visitors can filter the gallery, enlarge images and browse with arrow keys. The research explanation sits beneath the work with expandable technical context. The box-tracking Motion Studio is accessible from navigation and a prominent homepage link. The camera-based motion-capture route remains redirected.
+The homepage features a 43-second Again Robotics product film made only from Zeke’s photo-booth footage and the J850 printing video, followed by six selected physical experiments and CAD studies. The film opens as a full-width, muted autoplay loop with subtle sticky parallax, followed by the introduction. Minimal pause and sound controls remain available; reduced-motion preferences disable autoplay and parallax. Visitors can filter the gallery, enlarge images and browse with arrow keys. The research explanation sits beneath the work with expandable technical context. The box-tracking Motion Studio is accessible from navigation and a prominent homepage link. The camera-based motion-capture route remains redirected.
 
 - `index.html`, `assets/research.css`, `assets/research.js`: responsive portfolio and accessible native-dialog image viewer.
 - `motion-lab.html`: restored V14R3 wrist-assisted box-tracking study; no camera access or camera experiment links.
@@ -39,4 +39,4 @@ The generated source PNG is kept in the workspace `generated_images` directory. 
 
 ## Validation and editing
 
-No build or external dependencies for the homepage. Preserve `CNAME`, `.nojekyll` and the Motion Studio’s existing vendored assets. Validate local links and media, gallery filtering/dialog controls, and live deployment. The product film does not autoplay or loop; only metadata is preloaded. Native playback controls and image links work without JavaScript; the gallery filters only enhance browsing.
+No build or external dependencies for the homepage. Preserve `CNAME`, `.nojekyll` and the Motion Studio’s existing vendored assets. Validate local links and media, gallery filtering/dialog controls, and live deployment. The product film autoplays muted and loops; playback pauses offscreen. Minimal playback controls and the gallery filters enhance the page with JavaScript.
